@@ -1,0 +1,12 @@
+{
+    "name": "trust-backe-me",
+    "version": "0.0.1",
+    "description": "TrustBacke.Me child theme based on Genesis and Bootstrap 4",
+    "author": "Adamo Aerendir Crespi",
+    "license": "MIT",
+    "homepage": "https://bitbucket.org/Aerendir/web-trust-back-me-wp_theme",
+    "devDependencies": {
+        "bootstrap": "4.0.0",
+        "gulp": "^4"
+    }
+}
