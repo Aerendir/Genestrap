@@ -5,6 +5,9 @@ gulp.task('move-php-files', function(done){
     gulp.src(['src/*.php', '!src/config.dist.php'])
         .pipe(gulp.dest('build/theme'));
 
+    gulp.src('src/lib/*.php')
+        .pipe(gulp.dest('build/theme/lib'));
+
     // Inform Gulp this task is don
     done();
 });

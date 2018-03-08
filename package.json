@@ -8,5 +8,8 @@
     "devDependencies": {
         "bootstrap": "4.0.0",
         "gulp": "^4"
+    },
+    "dependencies": {
+        "jquery": "^3.3.1"
     }
 }
