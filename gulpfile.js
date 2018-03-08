@@ -1,4 +1,9 @@
-var gulp = require('gulp');
+var gulp = require('gulp'),
+    concat = require('gulp-concat'),
+    rename = require('gulp-rename'),
+    sass = require('gulp-sass'),
+    merge = require('merge-stream'),
+    del = require('del');
 
 // Move all PHP files to the build/theme folder
 gulp.task('move-php-files', function(done){
@@ -8,20 +13,31 @@ gulp.task('move-php-files', function(done){
     gulp.src('src/lib/*.php')
         .pipe(gulp.dest('build/theme/lib'));
 
-    // Inform Gulp this task is don
+    // Inform Gulp this task is done
     done();
 });
 
-// Move style.css to the vuild/theme folder
-gulp.task('move-style-css', function(done){
-    gulp.src('src/style.css')
+gulp.task('clean-build', function (done) {
+    return del(['build/**/*']);
+});
+
+// Build CSSes from SASSes
+gulp.task('build-css', function (done) {
+    var cssStream = gulp.src('src/style.css');
+    var sassStream = gulp.src('src/scss/bootstrap.scss')
+        .pipe(sass.sync().on('error', sass.logError))
+        .pipe(gulp.dest('build/tmp'));
+
+    var mergedStream = merge(cssStream, sassStream)
+        .pipe(concat('test.css'))
+        .pipe(rename('style.css'))
         .pipe(gulp.dest('build/theme'));
 
-    // Inform Gulp this task is don
     done();
 });
 
 gulp.task('build', gulp.series(
-    'move-style-css',
+    'clean-build',
+    'build-css',
     'move-php-files'
 ));

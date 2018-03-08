@@ -7,9 +7,12 @@
     "homepage": "https://bitbucket.org/Aerendir/web-trust-back-me-wp_theme",
     "devDependencies": {
         "bootstrap": "4.0.0",
-        "gulp": "^4"
-    },
-    "dependencies": {
-        "jquery": "^3.3.1"
+        "del": "^3.0.0",
+        "gulp": "^4.0.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-rename": "^1.2.2",
+        "gulp-sass": "^3.1.0",
+        "jquery": "^3.3.1",
+        "merge-stream": "^1.0.1"
     }
 }

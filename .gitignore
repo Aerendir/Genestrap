@@ -3,3 +3,4 @@ build
 node_modules
 src/style.css
 src/config.php
+src/scss/bootstrap.scss
