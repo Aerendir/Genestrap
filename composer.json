@@ -1,0 +1,10 @@
+{
+    "name": "serendipity_hq/genestrap",
+    "license": "MIT",
+    "type": "project",
+    "description": "A Bootstrap child theme for Genesis.",
+    "require-dev": {
+        "wp-bootstrap/wp-bootstrap-navwalker": "^4",
+        "stevegrunwell/wp-enforcer": "^0.5"
+    }
+}

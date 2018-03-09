@@ -1,6 +1,8 @@
 yarn.lock
 build
 node_modules
+vendor
 src/style.css
 src/config.php
 src/scss/bootstrap.scss
+src/js/bootstrap.js

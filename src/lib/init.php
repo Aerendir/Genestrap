@@ -21,9 +21,9 @@ function shq_gestrap_init() {
 	if ( ! is_admin() ) {
 		add_action( 'wp_enqueue_scripts', 'shqgb_enqueue_scripts', 11 );
 		function shqgb_enqueue_scripts() {
-			wp_deregister_script( 'jquery' );
-			wp_register_script( 'scripts', '../scripts.js', [], true, true );
-			wp_enqueue_script( 'scripts' );
+			// Add the Bootstrap scripts
+			wp_register_script( 'bootstrap', get_stylesheet_directory_uri() . '/js/bootstrap.bundle.js', ['jquery'], '4.0.0', true );
+			wp_enqueue_script('bootstrap');
 		}
 
 		;
@@ -34,6 +34,9 @@ function shq_gestrap_init() {
 
 	// Add HTML5 responsive recognition
 	add_theme_support( 'genesis-responsive-viewport' );
+
+	//* Unregister secondary navigation menu
+	add_theme_support( 'genesis-menus', [ 'primary' => __( 'Header Navigation Menu', 'genesis' ) ] );
 
 	// Load all the files required to customize Genesis
 	foreach ( glob( get_stylesheet_directory() . '/lib/*.php' ) as $file ) {
