@@ -10,7 +10,7 @@ add_action('genesis_header', 'shq_genestrap_header');
  *
  * Uses some functions overridden from Genesis.
  */
-function shq_genestrap_header() {
+function shq_genestrap_header():void {
 	// Open the nav
 	echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">';
 
@@ -30,65 +30,20 @@ function shq_genestrap_header() {
 	echo '</nav>';
 }
 
-remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
-add_action( 'genesis_site_title', 'shq_genestrap_seo_site_title' );
+add_filter('genesis_seo_title', 'shq_genestrap_seo_title' , 10, 3);
 /**
- * THIS IS COPIED FROM Genesis/header.php.
+ * Adds the navbar-brand markup to the title.
  *
- * We need to add the navbar-brand class.
+ * @param string $title
  *
- * Echo the site title into the header.
- *
- * Depending on the SEO option set by the user, this will either be wrapped in an `h1` or `p` element.
- *
- * Applies the `genesis_seo_title` filter before echoing.
- *
- * @since 1.1.0
+ * @return string
  */
-function shq_genestrap_seo_site_title() {
-
-	// Set what goes inside the wrapping tags.
-	$inside = sprintf( '<a class="navbar-brand" href="%s">%s</a>', trailingslashit( home_url() ), get_bloginfo( 'name' ) );
-
-	// Determine which wrapping tags to use.
-	$wrap = genesis_is_root_page() && 'title' === genesis_get_seo_option( 'home_h1_on' ) ? 'h1' : 'p';
-
-	// A little fallback, in case an SEO plugin is active.
-	$wrap = genesis_is_root_page() && ! genesis_get_seo_option( 'home_h1_on' ) ? 'h1' : $wrap;
-
-	// Wrap homepage site title in p tags if static front page.
-	$wrap = is_front_page() && ! is_home() ? 'p' : $wrap;
-
-	// And finally, $wrap in h1 if HTML5 & semantic headings enabled.
-	$wrap = genesis_html5() && genesis_get_seo_option( 'semantic_headings' ) ? 'h1' : $wrap;
-
-	/**
-	 * Site title wrapping element
-	 *
-	 * The wrapping element for the site title.
-	 *
-	 * @since 2.2.3
-	 *
-	 * @param string $wrap The wrapping element (h1, h2, p, etc.).
-	 */
-	$wrap = apply_filters( 'genesis_site_title_wrap', $wrap );
-
-	// Build the title.
-	$title = genesis_markup( [
-		'open'    => sprintf( "<{$wrap} %s>", genesis_attr( 'site-title' ) ),
-		'close'   => "</{$wrap}>",
-		'content' => $inside,
-		'context' => 'site-title',
-		'echo'    => false,
-		'params'  => [
-			'wrap' => $wrap,
-		],
-	] );
-
-	echo apply_filters( 'genesis_seo_title', $title, $inside, $wrap );
-
+function shq_genestrap_seo_title( string $title):string {
+	// Hardly add the navbr-brand class to the a tag in the title.
+	// The a title currently doesn't receive any class, so it is safe to simply add the class as we don't risk to overwrite anything.
+	// See header.php > genesis_seo_site_title() function for more info
+	return str_replace('<a', '<a class="navbar-brand" ', $title);
 }
-
 
 //add_action('genesis_header', 'custom_do_nav', 5);
 
