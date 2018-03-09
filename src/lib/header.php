@@ -54,7 +54,7 @@ add_action('genesis_header', 'shq_genestrap_header');
  * @return mixed
  */
 function shq_genestrap_title_area(array $attributes) {
-	$attributes['class'] = $attributes['class'] . ' navbar navbar-expand-lg navbar-light bg-light';
+	$attributes['class'] = $attributes['class'] . ' navbar navbar-expand-lg navbar-dark bg-dark';
 	return $attributes;
 }
 add_filter('genesis_attr_title-area','shq_genestrap_title_area');
@@ -71,7 +71,16 @@ function shq_genestrap_seo_title(...$params):string {
 	// Hardly add the navbr-brand class to the a tag in the title.
 	// The a title currently doesn't receive any class, so it is safe to simply add the class as we don't risk to overwrite anything.
 	// See header.php > genesis_seo_site_title() function for more info
-	return str_replace('<a', '<a class="navbar-brand" ', $params[1]);
+	$title = str_replace('<a', '<a class="navbar-brand" ', $params[1]);
+
+	if (get_theme_support( 'custom-header' )) {
+		$logo = sprintf('<img src="%s" width="%s" height="%s" alt="%s" />', esc_url(get_header_image()), esc_attr( get_custom_header()->width) , esc_attr( get_custom_header()->height ) , get_bloginfo( 'name' ));
+
+		// Remove the text from the $title
+		$title = sprintf('<a href="%s" class="navbar-brand">%s</a>', home_url(), $logo);
+	}
+
+	return $title;
 }
 add_filter('genesis_seo_title', 'shq_genestrap_seo_title' , 10, 3);
 

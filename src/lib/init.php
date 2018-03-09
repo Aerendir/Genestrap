@@ -38,6 +38,14 @@ function shq_gestrap_init() {
 	//* Unregister secondary navigation menu
 	add_theme_support( 'genesis-menus', [ 'primary' => __( 'Header Navigation Menu', 'genesis' ) ] );
 
+	add_theme_support('custom-header', [
+		'header_image'    => '',
+		'header-selector' => '.site-title a',
+		'header-text'     => false,
+		'height'          => 19,
+		'width'           => 139,
+	]);
+
 	// Load all the files required to customize Genesis
 	foreach ( glob( get_stylesheet_directory() . '/lib/*.php' ) as $file ) {
 		// Do not include this file
