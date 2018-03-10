@@ -17,17 +17,15 @@ function shq_gestrap_init() {
 	define( 'CHILD_THEME_URL', $config['CHILD_THEME_URL'] );
 	define( 'CHILD_THEME_VERSION', $config['CHILD_THEME_VERSION'] );
 
-	// Unregister JQuery (only for frontend) and enqueue the compiled scripts
-	if ( ! is_admin() ) {
-		add_action( 'wp_enqueue_scripts', 'shqgb_enqueue_scripts', 11 );
-		function shqgb_enqueue_scripts() {
-			// Add the Bootstrap scripts
-			wp_register_script( 'bootstrap', get_stylesheet_directory_uri() . '/js/bootstrap.bundle.js', ['jquery'], '4.0.0', true );
-			wp_enqueue_script('bootstrap');
-		}
 
-		;
-	}
+	// Add Bootstrap
+	function shqgb_enqueue_scripts() {
+		$bootstrapFile = get_stylesheet_directory_uri() . '/js/bootstrap.bundle.js';
+		// Add the Bootstrap scripts
+		wp_register_script( 'bootstrap', $bootstrapFile, ['jquery'], '4.0', true );
+		wp_enqueue_script('bootstrap');
+	};
+	add_action( 'wp_enqueue_scripts', 'shqgb_enqueue_scripts', 11 );
 
 	// Add HTML5 markup structure from Genesis
 	add_theme_support( 'html5' );
