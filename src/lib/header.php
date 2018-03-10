@@ -47,17 +47,42 @@ function shq_genestrap_header():void {
 add_action('genesis_header', 'shq_genestrap_header');
 
 /**
- * Adds the Bootstrap classes to the title-area markup.
+ * Adds the Bootstrap "container" class to the site-header inner wrap.
  *
- * @param array $attributes
+ * @param string $output
+ * @param string $original_output
+ *
+ * @return string
+ */
+function shq_genestrap_add_header_wrap_classes(string $output, string $original_output):string
+{
+	if ('open' === $original_output) {
+		$output = str_replace('">', ' container">', $output);
+	}
+
+	return $output;
+}
+add_filter("genesis_structural_wrap-header", 'shq_genestrap_add_header_wrap_classes', 10, 2);
+
+/**
+ * Adds the background to the header.
+ *
+ * @return array
+ */
+function shq_genestrap_add_header_classes():array {
+	return shq_genestrap_add_html_class('site-header', 'bg-dark');
+}
+add_filter('shq_genestrap_add_genesis_attr', 'shq_genestrap_add_header_classes');
+
+/**
+ * Adds the Bootstrap classes to the title-area markup.
  *
  * @return mixed
  */
-function shq_genestrap_title_area(array $attributes) {
-	$attributes['class'] = $attributes['class'] . ' navbar navbar-expand-lg navbar-dark bg-dark';
-	return $attributes;
+function shq_genestrap_title_area_classes() {
+	return shq_genestrap_add_html_classes('title-area', ['navbar', 'navbar-expand-lg', 'navbar-dark']);
 }
-add_filter('genesis_attr_title-area','shq_genestrap_title_area');
+add_filter('shq_genestrap_add_genesis_attr', 'shq_genestrap_title_area_classes');
 
 /**
  * Adds the navbar-brand markup to the title.

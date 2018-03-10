@@ -1,5 +1,5 @@
 /*
-	Theme Name: Genesis with Bootstrap
+	Theme Name: TrustBack.me
 	Theme URI: http://www.serendipityhq.com/
 	Description: This is Genesis with Bootstrap
 	Author: Aerendir
@@ -16,3 +16,11 @@
 
 	Text Domain: shq-genesis-bootstrap
 */
+
+main {
+    background-color: #ffffff;
+}
+
+aside.sidebar .widget {
+    background-color: #ffffff;
+}
