@@ -9,6 +9,10 @@ remove_action( 'genesis_after_header', 'genesis_do_nav' );
 // Remove the nav-link parser as they are created by the WP_Bootstrap_Walker
 remove_filter( 'nav_menu_link_attributes', 'genesis_nav_menu_link_attributes' );
 
+// Add the container class to some wrappers
+add_filter("genesis_structural_wrap-site-inner", 'shq_genestrap_add_container_to_wrapper', 10, 2);
+add_filter("genesis_structural_wrap-header", 'shq_genestrap_add_container_to_wrapper', 10, 2);
+
 /**
  * Rebuild the header to match the Bootstrap structure.
  */
@@ -45,24 +49,6 @@ function shq_genestrap_header():void {
 	] );
 }
 add_action('genesis_header', 'shq_genestrap_header');
-
-/**
- * Adds the Bootstrap "container" class to the site-header inner wrap.
- *
- * @param string $output
- * @param string $original_output
- *
- * @return string
- */
-function shq_genestrap_add_header_wrap_classes(string $output, string $original_output):string
-{
-	if ('open' === $original_output) {
-		$output = str_replace('">', ' container">', $output);
-	}
-
-	return $output;
-}
-add_filter("genesis_structural_wrap-header", 'shq_genestrap_add_header_wrap_classes', 10, 2);
 
 /**
  * Adds the background to the header.

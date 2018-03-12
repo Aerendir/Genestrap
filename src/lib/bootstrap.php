@@ -24,14 +24,14 @@ function shq_genestrap_add_main_wrapper_classes():array {
 add_filter('shq_genestrap_add_genesis_attr', 'shq_genestrap_add_main_wrapper_classes' );
 
 /**
- * Adds the Bootstrap "container" class to the site-header inner wrap.
+ * Adds the Bootstrap "container" class to genesis_structural_wrap-*.
  *
  * @param string $output
  * @param string $original_output
  *
  * @return string
  */
-function shq_genestrap_add_inner_wrap_classes(string $output, string $original_output):string
+function shq_genestrap_add_container_to_wrapper(string $output, string $original_output):string
 {
 	if ('open' === $original_output) {
 		$output = str_replace('">', ' container">', $output);
@@ -39,7 +39,6 @@ function shq_genestrap_add_inner_wrap_classes(string $output, string $original_o
 
 	return $output;
 }
-add_filter("genesis_structural_wrap-site-inner", 'shq_genestrap_add_inner_wrap_classes', 10, 2);
 
 /**
  * Adds filters to the genesis_attr_* hook.

@@ -2,7 +2,6 @@
  * Add here custom variables to customize bootstrap.
  */
 $body-bg: #f4f6f7;
-$gray-base: #232323;
 $grid-gutter-width: 15px;
 
 @import "bootstrap";
@@ -12,6 +11,7 @@ $grid-gutter-width: 15px;
  */
 body {
     font-family: 'Raleway', sans-serif;
+    color: $gray-700;
 }
 
 .site-inner main {
@@ -30,4 +30,8 @@ aside.sidebar section.widget {
     .widget-wrap {
         padding: $grid-gutter-width;
     }
+}
+
+footer.site-footer {
+    background-color: #ffffff;
 }
