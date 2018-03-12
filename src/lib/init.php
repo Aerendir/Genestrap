@@ -47,8 +47,12 @@ function shq_gestrap_init() {
 	// Add support for structural wraps required to add Bootstrap additional classes
 	add_theme_support( 'genesis-structural-wraps', [
 		'header',
-		'site-inner'
+		'site-inner',
+		'footer',
+		'footer-widgets'
 	] );
+
+	add_theme_support( 'genesis-footer-widgets', 2 );
 
 	// Load all the files required to customize Genesis
 	foreach ( glob( get_stylesheet_directory() . '/lib/*.php' ) as $file ) {

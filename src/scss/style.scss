@@ -14,6 +14,11 @@ body {
     color: $gray-700;
 }
 
+header {
+    margin-bottom: $grid-gutter-width;
+    opacity: 0.9;
+}
+
 .site-inner main {
     article,
     #comments,
@@ -32,6 +37,17 @@ aside.sidebar section.widget {
     }
 }
 
-footer.site-footer {
-    background-color: #ffffff;
+footer {
+    margin-top: $grid-gutter-width;
+    p:last-child {
+        margin-bottom: 0px;
+    }
+
+    &.site-footer {
+        background-color: #ffffff;
+
+        .wrap.container {
+            padding: $grid-gutter-width;
+        }
+    }
 }

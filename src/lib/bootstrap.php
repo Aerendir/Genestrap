@@ -19,7 +19,7 @@
  * @return array
  */
 function shq_genestrap_add_main_wrapper_classes():array {
-	return shq_genestrap_add_html_class('content-sidebar-wrap', 'row');
+	return shq_genestrap_add_html_classes('content-sidebar-wrap', ['content-sidebar-wrap', 'row']);
 }
 add_filter('shq_genestrap_add_genesis_attr', 'shq_genestrap_add_main_wrapper_classes' );
 
@@ -34,7 +34,24 @@ add_filter('shq_genestrap_add_genesis_attr', 'shq_genestrap_add_main_wrapper_cla
 function shq_genestrap_add_container_to_wrapper(string $output, string $original_output):string
 {
 	if ('open' === $original_output) {
-		$output = str_replace('">', ' container">', $output);
+		$output = shq_genestrap_add_html_structural_class($output, 'container');
+	}
+
+	return $output;
+}
+
+/**
+ * Adds the Bootstrap "row" class to genesis_structural_wrap-*.
+ *
+ * @param string $output
+ * @param string $original_output
+ *
+ * @return string
+ */
+function shq_genestrap_add_row_to_wrapper(string $output, string $original_output):string
+{
+	if ('open' === $original_output) {
+		$output = shq_genestrap_add_html_structural_class($output, 'row');
 	}
 
 	return $output;

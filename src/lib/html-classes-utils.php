@@ -1,6 +1,23 @@
 <?php
 
 /**
+ * Appends the given $class to the given $tag.
+ *
+ * @param string $tag
+ * @param string $class
+ *
+ * @return mixed
+ */
+function shq_genestrap_add_html_structural_class(string $tag, string $class)
+{
+	if (false === strpos($tag, $class)) {
+		$tag = str_replace( '">', sprintf( ' %s">', $class ), $tag );
+	}
+
+	return $tag;
+}
+
+/**
  * Adds a class to the array of classes to apply.
  *
  * NOTE: When calling this method do it this way:
@@ -69,7 +86,14 @@ function apply_classes($attr, $context):array {
 
 	$classes = '';
 	if (isset($shq_genestrap_classes[$context])) {
-		$classes = implode(' ', $shq_genestrap_classes[$context]);
+		$classes = $shq_genestrap_classes[$context];
+		if (false === empty($attr['class'])) {
+			$attrClasses = explode(' ', $attr['class']);
+
+			$classes = array_unique(array_merge($attrClasses, $classes));
+		}
+
+		$classes = implode(' ', $classes);
 	}
 
 	$attr['class'] = $classes;
