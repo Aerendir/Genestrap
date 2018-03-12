@@ -1,0 +1,23 @@
+/**
+ * Add here custom variables to customize bootstrap.
+ */
+$body-bg: #f4f6f7;
+
+@import "bootstrap";
+
+/**
+ * HERE ADD YOUR CUSTOM CSS RULES
+ */
+
+main {
+    background-color: #ffffff;
+}
+
+aside.sidebar section.widget {
+    background-color: #ffffff;
+    margin-bottom: 15px;
+
+    .widget-wrap {
+        padding: 15px;
+    }
+}

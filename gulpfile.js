@@ -33,7 +33,7 @@ gulp.task('clean-build', function (done) {
 // Build CSSes from SASSes
 gulp.task('build-css', function (done) {
     var cssStream = gulp.src('src/style.css');
-    var sassStream = gulp.src('src/scss/bootstrap.scss')
+    var sassStream = gulp.src('src/scss/style.scss')
         .pipe(sass.sync().on('error', sass.logError))
         .pipe(gulp.dest('build/tmp'));
 

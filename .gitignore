@@ -5,4 +5,5 @@ vendor
 src/style.css
 src/config.php
 src/scss/bootstrap.scss
+src/scss/style.scss
 src/js/bootstrap.js
