@@ -17,7 +17,6 @@ function shq_gestrap_init() {
 	define( 'CHILD_THEME_URL', $config['CHILD_THEME_URL'] );
 	define( 'CHILD_THEME_VERSION', $config['CHILD_THEME_VERSION'] );
 
-
 	// Add Bootstrap
 	function shqgb_enqueue_scripts() {
 		$bootstrapFile = get_stylesheet_directory_uri() . '/js/bootstrap.bundle.js';

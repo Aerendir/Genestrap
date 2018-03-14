@@ -3,6 +3,9 @@
 // Include the child theme init file
 require_once(get_stylesheet_directory() . '/lib/init.php');
 
+// Add the author box under posts
+add_filter( 'get_the_author_genesis_author_box_single', '__return_true' );
+
 /**
  * Imports the Google font to use on the site.
  */
