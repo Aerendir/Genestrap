@@ -85,7 +85,9 @@ function shq_genestrap_seo_title(...$params):string {
 	$title = str_replace('<a', '<a class="navbar-brand" ', $params[1]);
 
 	if (get_theme_support( 'custom-header' )) {
-		$logo = sprintf('<img src="%s" width="%s" height="%s" alt="%s" />', esc_url(get_header_image()), esc_attr( get_custom_header()->width) , esc_attr( get_custom_header()->height ) , get_bloginfo( 'name' ));
+		$logo = get_header_image()
+			? sprintf('<img src="%s" width="%s" height="%s" alt="%s" />', esc_url(get_header_image()), esc_attr( get_custom_header()->width) , esc_attr( get_custom_header()->height ) , get_bloginfo( 'name' ))
+			: get_bloginfo( 'name' );
 
 		// Remove the text from the $title
 		$title = sprintf('<a href="%s" class="navbar-brand">%s</a>', home_url(), $logo);
