@@ -56,6 +56,10 @@ add_action('genesis_header', 'shq_genestrap_header');
  * @return array
  */
 function shq_genestrap_add_header_classes():array {
+	if (genesis_site_layout() === 'full-width-content') {
+		shq_genestrap_add_html_class('site-header', 'mb-0');
+	}
+
 	return shq_genestrap_add_html_class('site-header', 'bg-dark');
 }
 add_filter('shq_genestrap_add_genesis_attr', 'shq_genestrap_add_header_classes');
