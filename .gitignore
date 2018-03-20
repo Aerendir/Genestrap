@@ -4,6 +4,7 @@ node_modules
 vendor
 src/style.css
 src/config.php
+src/functions.php
 src/scss/bootstrap.scss
 src/scss/style.scss
 src/scss/custom/
