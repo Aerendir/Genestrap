@@ -23,6 +23,9 @@ header {
 
 .site-inner main {
     article,
+    .genestrap-category-wrap,
+    .genestrap-tag-wrap,
+    .genestrap-tax-wrap,
     #comments,
     #respond {
         padding: $grid-gutter-width;
@@ -34,7 +37,10 @@ header {
         margin: 0;
     }
 
-    article {
+    article,
+    .genestrap-category-wrap,
+    .genestrap-tag-wrap,
+    .genestrap-tax-wrap {
         background-color: #ffffff;
     }
 

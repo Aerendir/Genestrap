@@ -40,3 +40,45 @@ function prepare_full_width_content() {
 	}
 }
 add_action('genesis_before_content', 'prepare_full_width_content' );
+
+/**
+ * Opens a wrap for the categories, tags or taxnomies lists.
+ */
+function wrap_categories_list_open() {
+	if (is_category()) {
+		$is = 'category';
+	} elseif (is_tag()) {
+		$is = 'tag';
+	} elseif (is_tax()) {
+		$is = 'tax';
+	} else {
+		return;
+	}
+
+	genesis_markup( [
+		'open'    => '<div %s>',
+		'context' => "genestrap-{$is}-wrap"
+	] );
+}
+add_action('genesis_before_loop', 'wrap_categories_list_open');
+
+/**
+ * Closes a wrap for the categories, tags or taxnomies lists.
+ */
+function wrap_categories_list_close() {
+	if (is_category()) {
+		$is = 'category';
+	} elseif (is_tag()) {
+		$is = 'tag';
+	} elseif (is_tax()) {
+		$is = 'tax';
+	} else {
+		return;
+	}
+
+	genesis_markup( [
+		'close'    => '</div>',
+		'context' => "genestrap-{$is}-wrap"
+	] );
+}
+add_action('genesis_after_loop', 'wrap_categories_list_close');
