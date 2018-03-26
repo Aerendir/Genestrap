@@ -96,12 +96,15 @@ function shq_genestrap_categories_grid_shortcode() {
 add_shortcode('shq_genestrap_categories_grid', 'shq_genestrap_categories_grid_shortcode' );
 
 /**
+ * @param array $atts
+ *
  * @return string
  */
-function shq_genestrap_search_form_shortcode($atts) {
+function shq_genestrap_search_form_shortcode(array $atts) {
 	$default = [
 		'show_label' => 'true',
 		'show_placeholder' => 'true',
+		'input_data' => '',
 		'form_classes' => '',
 		'input_classes' => 'form-control',
 		'input_wrapper' => 'col',
@@ -119,7 +122,7 @@ function shq_genestrap_search_form_shortcode($atts) {
 		$form .= '<label class="screen-reader-text" for="s">' . __('Search for:') . '</label>';
 	}
 
-	$form .= '<div class="' . $atts['input_wrapper'] . '"><input class="' . $atts['input_classes'] . '" type="text" value="' . get_search_query() . '" name="s" id="s"';
+	$form .= '<div class="' . $atts['input_wrapper'] . '"><input ' . $atts['input_data'] . 'class="' . $atts['input_classes'] . '" type="text" value="' . get_search_query() . '" name="s" id="s"';
 	if ($atts['show_placeholder']) {
 		$form .= 'placeholder="' . __( 'Search for:' );
 	}
