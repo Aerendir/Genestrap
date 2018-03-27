@@ -13,7 +13,7 @@ function shq_genestrap_add_content_classes():array {
 			$classes = ['col-lg-12'];
 			break;
 		case 'content-sidebar':
-			$classes = ['col-lg-8', 'col-sm-8', 'col-lg-8'];
+			$classes = ['col-lg-8', 'col-md-12'];
 			break;
 		case 'sidebar-content':
 		case 'content-sidebar-sidebar':
