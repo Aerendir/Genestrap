@@ -30,6 +30,10 @@ header {
         padding: $grid-gutter-width;
     }
 
+    h2.entry-title {
+        font-size: 2rem;
+    }
+
     .entry-content {
         img {
             width: 100%;
