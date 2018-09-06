@@ -327,13 +327,17 @@ section.author-box {
     }
 }
 
+
 @include media-breakpoint-down(sm) {
     body {
         font-size: 1rem;
 
         header.entry-header {
-            h1.entry-title {
-                font-size: 1.6rem;
+
+            h1, h2 {
+                &.entry-title {
+                    font-size: 1.6rem;
+                }
             }
         }
     }
