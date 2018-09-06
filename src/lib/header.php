@@ -74,7 +74,13 @@ add_filter('shq_genestrap_add_genesis_attr', 'shq_genestrap_add_header_classes')
  * @return mixed
  */
 function shq_genestrap_title_area_classes() {
-    return shq_genestrap_add_html_classes('title-area', ['navbar', 'navbar-expand-lg', 'navbar-dark']);
+    $classes = ['navbar', 'navbar-expand-lg'];
+
+    if (false === shq_genestrap_has_html_class('title-area', 'navbar-dark') && false === shq_genestrap_has_html_class('title-area', 'navbar-light')) {
+        $classes[] = 'navbar-dark';
+    }
+
+    return shq_genestrap_add_html_classes('title-area', $classes);
 }
 add_filter('shq_genestrap_add_genesis_attr', 'shq_genestrap_title_area_classes');
 
