@@ -10,11 +10,11 @@
  */
 function shq_genestrap_add_html_structural_class(string $tag, string $class)
 {
-	if (false === strpos($tag, $class)) {
-		$tag = str_replace( '">', sprintf( ' %s">', $class ), $tag );
-	}
+    if (false === strpos($tag, $class)) {
+        $tag = str_replace( '">', sprintf( ' %s">', $class ), $tag );
+    }
 
-	return $tag;
+    return $tag;
 }
 
 /**
@@ -32,30 +32,44 @@ function shq_genestrap_add_html_structural_class(string $tag, string $class)
  * @return array
  */
 function shq_genestrap_add_html_class(string $node, string $class):array {
-	// Assign the classes to a global variable so they can be retrieved by apply_classes()
-	global $shq_genestrap_classes;
+    // Assign the classes to a global variable so they can be retrieved by apply_classes()
+    global $shq_genestrap_classes;
 
-	if (null === $shq_genestrap_classes) {
-		$shq_genestrap_classes = [];
-	}
+    if (null === $shq_genestrap_classes) {
+        $shq_genestrap_classes = [];
+    }
 
-	if (
-		// If the node isn't already set...
-		false === isset($shq_genestrap_classes[$node])
-		// If the class isn't already added to the list of the node...
-		|| false === array_search($class, $shq_genestrap_classes)
-	) {
-		// Sanitize the class
-		$class = sanitize_html_class($class);
+    if ( false === shq_genestrap_has_html_class($node, $class) ) {
+        // Sanitize the class
+        $class = sanitize_html_class($class);
 
-		// If it is not empty after the sanitization...
-		if (false === empty($class)) {
-			// Adds it to the array
-			$shq_genestrap_classes[ $node ][] = $class;
-		}
-	}
+        // If it is not empty after the sanitization...
+        if (false === empty($class)) {
+            // Adds it to the array
+            $shq_genestrap_classes[ $node ][] = $class;
+        }
+    }
 
-	return $shq_genestrap_classes;
+    return $shq_genestrap_classes;
+}
+
+/**
+ * Checks if the given class is already set for the node.
+ *
+ * @param string $node
+ * @param string $class
+ *
+ * @return bool
+ */
+function shq_genestrap_has_html_class(string $node, string $class):bool {
+    global $shq_genestrap_classes;
+
+    return
+        is_array($shq_genestrap_classes) &&
+        // If the node isn't already set...
+        array_key_exists($node, $shq_genestrap_classes) &&
+        // If the class isn't already added to the list of the node...
+        in_array($class, $shq_genestrap_classes[$node], true);
 }
 
 /**
@@ -67,12 +81,12 @@ function shq_genestrap_add_html_class(string $node, string $class):array {
  * @return array
  */
 function shq_genestrap_add_html_classes(string $node, array $classes):array {
-	$return = [];
-	foreach ($classes as $class) {
-		$return = shq_genestrap_add_html_class($node, $class);
-	}
+    $return = [];
+    foreach ($classes as $class) {
+        $return = shq_genestrap_add_html_class($node, $class);
+    }
 
-	return $return;
+    return $return;
 }
 
 /**
@@ -82,21 +96,21 @@ function shq_genestrap_add_html_classes(string $node, array $classes):array {
  * @return array
  */
 function apply_classes($attr, $context):array {
-	global $shq_genestrap_classes;
+    global $shq_genestrap_classes;
 
-	$classes = '';
-	if (isset($shq_genestrap_classes[$context])) {
-		$classes = $shq_genestrap_classes[$context];
-		if (false === empty($attr['class'])) {
-			$attrClasses = explode(' ', $attr['class']);
+    $classes = '';
+    if (isset($shq_genestrap_classes[$context])) {
+        $classes = $shq_genestrap_classes[$context];
+        if (false === empty($attr['class'])) {
+            $attrClasses = explode(' ', $attr['class']);
 
-			$classes = array_unique(array_merge($attrClasses, $classes));
-		}
+            $classes = array_unique(array_merge($attrClasses, $classes));
+        }
 
-		$classes = implode(' ', $classes);
-	}
+        $classes = implode(' ', $classes);
+    }
 
-	$attr['class'] = $classes;
+    $attr['class'] = $classes;
 
-	return $attr;
+    return $attr;
 }
