@@ -326,3 +326,9 @@ section.author-box {
         margin-right: $grid-gutter-width;
     }
 }
+
+@include media-breakpoint-down(sm) {
+    body {
+        font-size: 1rem;
+    }
+}
