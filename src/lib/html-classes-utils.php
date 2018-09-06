@@ -118,6 +118,26 @@ function shq_genestrap_add_html_classes(string $node, array $classes):array {
 }
 
 /**
+ * Helper method to remove a class from the given node.
+ *
+ * @param string $node
+ * @param string  $class
+ *
+ * @return array
+ */
+function shq_genestrap_remove_html_class(string $node, string $class):array {
+    global $shq_genestrap_classes;
+
+    if (shq_genestrap_has_html_class($node, $class)) {
+        $classId = array_search($class, $shq_genestrap_classes[$node], true);
+
+        unset($shq_genestrap_classes[$node][$classId]);
+    }
+
+    return $shq_genestrap_classes;
+}
+
+/**
  * @param array $attr
  * @param string $context
  *
