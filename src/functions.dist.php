@@ -11,7 +11,7 @@ add_filter( 'get_the_author_genesis_author_box_single', '__return_true' );
  */
 function google_fonts() {
 	$query_args = [
-		'family' => 'Pacifico|Raleway:300,300i,400,400i,800,800i'
+        'family' => 'Pacifico|Raleway:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i'
 	];
 	wp_enqueue_style('google_fonts', add_query_arg($query_args, '//fonts.googleapis.com/css'), array(), null );
 }
