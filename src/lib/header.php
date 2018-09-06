@@ -60,7 +60,7 @@ function shq_genestrap_add_header_classes():array {
         shq_genestrap_add_html_class('site-header', 'mb-0');
     }
 
-    if (false === shq_genestrap_has_html_class('site-header', 'bg-dark') && false === shq_genestrap_has_html_class('site-header', 'bg-light')) {
+    if (false === shq_genestrap_has_html_class_that_contains('site-header', 'bg-')) {
         return shq_genestrap_add_html_class('site-header', 'bg-dark');
     }
 

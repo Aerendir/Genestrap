@@ -73,6 +73,34 @@ function shq_genestrap_has_html_class(string $node, string $class):bool {
 }
 
 /**
+ * Checks if the given class is already set for the node.
+ *
+ * @param string $node
+ * @param string $class_needle
+ *
+ * @return bool
+ */
+function shq_genestrap_has_html_class_that_contains(string $node, string $class_needle):bool {
+    global $shq_genestrap_classes;
+
+    $found = false;
+
+    if (
+        is_array($shq_genestrap_classes) &&
+        // If the node isn't already set...
+        array_key_exists($node, $shq_genestrap_classes)
+    ) {
+        foreach ($shq_genestrap_classes[$node] as $class) {
+            if (false !== strpos($class, $class_needle)) {
+                $found = true;
+            }
+        }
+    }
+
+    return $found;
+}
+
+/**
  * Helper method to apply multiple classes in one pass.
  *
  * @param string $node
