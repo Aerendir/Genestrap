@@ -19,10 +19,10 @@ function shq_gestrap_init() {
 
 	// Add Bootstrap
 	function shqgb_enqueue_scripts() {
-		$bootstrapFile = get_stylesheet_directory_uri() . '/js/bootstrap.bundle.js';
+		$scriptsFile = get_stylesheet_directory_uri() . '/js/scripts.js';
 		// Add the Bootstrap scripts
-		wp_register_script( 'bootstrap', $bootstrapFile, ['jquery'], '4.0', true );
-		wp_enqueue_script('bootstrap');
+		wp_register_script( 'scripts', $scriptsFile, ['jquery'], '4.0', true );
+		wp_enqueue_script('scripts');
 	};
 	add_action( 'wp_enqueue_scripts', 'shqgb_enqueue_scripts', 11 );
 

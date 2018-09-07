@@ -1,9 +1,11 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
   concat = require('gulp-concat'),
   rename = require('gulp-rename'),
   sass = require('gulp-sass'),
   merge = require('merge-stream'),
-  del = require('del');
+  del = require('del'),
+  fs = require('fs');
+
 
 // Move all PHP files to the build/theme folder
 gulp.task('move-php-files', function(done){
@@ -35,18 +37,23 @@ gulp.task('move-bootstrap-walker', function(done){
   done();
 });
 
-gulp.task('clean-build', function (done) {
+gulp.task('clean-build', function () {
   return del(['build/**/*']);
 });
 
 // Build CSSes from SASSes
 gulp.task('build-css', function (done) {
-  var cssStream = gulp.src('src/style.css');
-  var sassStream = gulp.src('src/scss/style.scss')
+  const sassStream = gulp.src('src/scss/style.scss')
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(gulp.dest('build/tmp'));
 
-  var mergedStream = merge(cssStream, sassStream)
+  let cssFiles = ['src/style.css'];
+  if (fs.existsSync('src/css')) {
+    cssFiles.push('src/css/**/*.css');
+  }
+  let styleCssStream = gulp.src(cssFiles);
+
+  merge(styleCssStream, sassStream)
     .pipe(concat('test.css'))
     .pipe(rename('style.css'))
     .pipe(gulp.dest('build/theme'));
@@ -54,18 +61,26 @@ gulp.task('build-css', function (done) {
   done();
 });
 
-// Include Bootstrap Bundle
-gulp.task('move-bootstrap-bundle', function (done) {
-  gulp.src('node_modules/bootstrap/dist/js/bootstrap.bundle.js')
+gulp.task('build-js', function (done) {
+  let jsFiles = ['node_modules/bootstrap/dist/js/bootstrap.bundle.js'];
+
+  if (fs.existsSync('src/js')) {
+    jsFiles.push('src/js/**/*.js');
+  }
+
+  gulp.src(jsFiles)
+    .pipe(concat('test.js'))
+    .pipe(rename('scripts.js'))
     .pipe(gulp.dest('build/theme/js'));
 
   done();
 });
 
+
 gulp.task('build', gulp.series(
   'clean-build',
   'build-css',
-  'move-bootstrap-bundle',
+  'build-js',
   'move-php-files',
   'move-bootstrap-walker',
   'move-screenshot'
