@@ -5,12 +5,4 @@
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-
-    &:first-child {
-        margin-top: -$grid-gutter-width;
-    }
-
-    &:last-child {
-        margin-bottom: -$grid-gutter-width;
-    }
 }
