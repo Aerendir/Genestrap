@@ -80,11 +80,11 @@ gulp.task('build-js', function (done) {
 gulp.task('move-icon-fonts', function (done) {
   if (fs.existsSync('src/scss/custom/elements/icons/build')) {
     gulp.src([
-      'src/scss/custom/elements/icons/build/custom-icons.eot',
-      'src/scss/custom/elements/icons/build/custom-icons.svg',
-      'src/scss/custom/elements/icons/build/custom-icons.ttf',
-      'src/scss/custom/elements/icons/build/custom-icons.woff',
-      'src/scss/custom/elements/icons/build/custom-icons.woff2',
+      'src/scss/custom/elements/icons/build/*.eot',
+      'src/scss/custom/elements/icons/build/*.svg',
+      'src/scss/custom/elements/icons/build/*.ttf',
+      'src/scss/custom/elements/icons/build/*.woff',
+      'src/scss/custom/elements/icons/build/*.woff2',
     ])
       .pipe(gulp.dest('build/theme/icons'));
   }
