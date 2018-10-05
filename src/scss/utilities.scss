@@ -6,3 +6,22 @@
     margin-left: -50vw;
     margin-right: -50vw;
 }
+
+/**
+ * Always apply this class to a container div to horizontally center the element inside it.
+ * Inside it put the oversized element (often a big image).
+ * @link https://stackoverflow.com/a/41059954/1399706
+ */
+div.oversized-center-container {
+    width: 100%;
+    overflow: hidden;
+
+    /**
+     * Apply this class to inside element, bigger than the container,
+     * that has to be horizontally centered.
+     */
+    .oversized-centered {
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+}
