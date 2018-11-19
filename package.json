@@ -6,7 +6,7 @@
     "license": "MIT",
     "homepage": "https://bitbucket.org/Aerendir/web-trust-back-me-wp_theme",
     "devDependencies": {
-        "bootstrap": "4.0.0",
+        "bootstrap": "^4.1",
         "del": "^3.0.0",
         "gulp": "^4.0.0",
         "gulp-concat": "^2.6.1",
