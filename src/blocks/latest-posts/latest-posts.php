@@ -39,13 +39,13 @@ function shq_genestrap_render_block_latest_post( $attributes ) {
 		$list_items_markup .= '<li>';
 		$post_id            = $post['ID'];
 
-		$post_featured_image_url = false;
+		$post_featured_image = '';
 		if ( isset( $attributes['displayPostFeaturedImage'] ) && true === $attributes['displayPostFeaturedImage'] ) {
 			$post_featured_image_url = get_the_post_thumbnail_url( $post_id );
-		}
 
-		if ( false !== $post_featured_image_url ) {
-			$list_items_markup .= sprintf( '<img src="%1$s" />', $post_featured_image_url );
+			if (false !== $post_featured_image_url) {
+				$post_featured_image = sprintf( '<img src="%1$s" />', $post_featured_image_url );
+			}
 		}
 
 		$title = get_the_title( $post_id );
@@ -54,8 +54,9 @@ function shq_genestrap_render_block_latest_post( $attributes ) {
 		}
 
 		$list_items_markup .= sprintf(
-			'<a href="%1$s">%2$s</a>',
+			'<a href="%1$s">%2$s%3$s</a>',
 			esc_url( get_permalink( $post_id ) ),
+			$post_featured_image,
 			esc_html( $title )
 		);
 
