@@ -28,5 +28,6 @@ Development commands
 --------------------
 
 ```console
-./node_modules/.bin/eslint "./src/**/*.js" --fix
+./node_modules/.bin/eslint "./src/**/*.js" --fix &&
+vendor/bin/phpcs
 ```
