@@ -6,8 +6,10 @@
     "license": "MIT",
     "homepage": "https://bitbucket.org/Aerendir/web-trust-back-me-wp_theme",
     "devDependencies": {
+        "@wordpress/eslint-plugin": "^1.0.1",
         "bootstrap": "^4.1",
         "del": "^3.0.0",
+        "eslint": "^5.12.1",
         "gulp": "^4.0.0",
         "gulp-concat": "^2.6.1",
         "gulp-if": "^2.0.2",

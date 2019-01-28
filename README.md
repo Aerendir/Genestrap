@@ -23,3 +23,10 @@ By default they are all commented, so you have to copy the file, rename it to `s
 ### STEP 3: Create a `config.php` file from `config.dist.php`
 
 Same thing: copy and rename, then change values accordingly to your project needs.
+
+Development commands
+--------------------
+
+```console
+./node_modules/.bin/eslint "./src/**/*.js" --fix
+```
