@@ -1,4 +1,18 @@
 <?php
+/**
+ * Configures Genesis to use Bootstrap classes.
+ *
+ * @package Genestrap
+ */
+
+/*
+ * This file is part of the Genestrap Genesis WordPress theme.
+ *
+ * (c) Adamo Crespi <hello@Aerendir.me>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 /**
  * Adds the Bootstrap classes for pagination to prev and next links.
@@ -8,8 +22,8 @@
 function shq_genestrap_prev_next_link_add_bootstrap_class():string {
 	return ' class="page-link"';
 }
-add_filter('previous_posts_link_attributes', 'shq_genestrap_prev_next_link_add_bootstrap_class');
-add_filter('next_posts_link_attributes', 'shq_genestrap_prev_next_link_add_bootstrap_class');
+add_filter( 'previous_posts_link_attributes', 'shq_genestrap_prev_next_link_add_bootstrap_class' );
+add_filter( 'next_posts_link_attributes', 'shq_genestrap_prev_next_link_add_bootstrap_class' );
 
 remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
 add_action( 'genesis_after_endwhile', 'shq_genestrap_posts_nav' );
@@ -59,19 +73,20 @@ function shq_genestrap_posts_nav() {
  */
 function shq_genestrap_numeric_posts_nav() {
 
-	if( is_singular() ) {
+	if ( is_singular() ) {
 		return;
 	}
 
 	global $wp_query;
 
 	// Stop execution if there's only one page.
-	if( $wp_query->max_num_pages <= 1 ) {
+	if ( $wp_query->max_num_pages <= 1 ) {
 		return;
 	}
 
 	$paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
 	$max   = (int) $wp_query->max_num_pages;
+	$links = [];
 
 	// Add current page to the array.
 	if ( $paged >= 1 ) {
@@ -89,49 +104,52 @@ function shq_genestrap_numeric_posts_nav() {
 		$links[] = $paged + 1;
 	}
 
-	genesis_markup( array(
-		'open'    => '<div %s>',
-		'context' => 'archive-pagination',
-	) );
+	genesis_markup(
+		[
+			'open'    => '<div %s>',
+			'context' => 'archive-pagination',
+		]
+	);
 
-	$before_number = genesis_a11y( 'screen-reader-text' ) ? '<span class="screen-reader-text">' . __( 'Page ', 'genesis' ) .  '</span>' : '';
+	$before_number = genesis_a11y() ? '<span class="screen-reader-text">' . __( 'Page ', 'genesis' ) . '</span>' : '';
 
 	echo '<ul class="pagination">';
 
 	// Previous Post Link.
 	if ( get_previous_posts_link() ) {
+		// phpcs:disable
 		printf( '<li class="page-item pagination-previous">%s</li>' . "\n", get_previous_posts_link( apply_filters( 'genesis_prev_link_text', '&#x000AB; ' . __( 'Previous Page', 'genesis' ) ) ) );
+		// phpcs:enable
 	}
 
 	// Link to first page, plus ellipses if necessary.
-	if ( ! in_array( 1, $links ) ) {
+	if ( ! in_array( 1, $links , false ) ) {
 
-		$class = 1 == $paged ? ' class="active page-item"' : ' class="page-item"';
+		$class = 1 === $paged ? ' class="active page-item"' : ' class="page-item"';
 
-		printf( '<li%s><a class="page-link" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( 1 ) ), $before_number . '1' );
+		printf( '<li%s><a class="page-link" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link() ), $before_number . '1' );
 
-		if ( ! in_array( 2, $links ) ) {
+		if ( ! in_array( 2, $links, false ) ) {
 			echo '<li class="pagination-omission">&#x02026;</li>' . "\n";
 		}
-
 	}
 
 	// Link to current page, plus 2 pages in either direction if necessary.
 	sort( $links );
-	foreach ( (array) $links as $link ) {
-		$class = $paged == $link ? ' class="active page-item"' : ' class="page-item"';
-		$aria  = $paged == $link ? ' aria-label="' . esc_attr__( 'Current page', 'genesis' ) . '"' : '';
-		printf( '<li%s><a class="page-link" href="%s"%s>%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $aria, $before_number . $link );
+	foreach ( $links as $link ) {
+		$class = $paged === $link ? ' class="active page-item"' : ' class="page-item"';
+		$aria  = $paged === $link ? ' aria-label="' . esc_attr__( 'Current page', 'genesis' ) . '"' : '';
+		printf( '<li%s><a class="page-link" href="%s" %s>%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $aria, $before_number . $link );
 	}
 
 	// Link to last page, plus ellipses if necessary.
-	if ( ! in_array( $max, $links ) ) {
+	if ( ! in_array( $max, $links, false ) ) {
 
-		if ( ! in_array( $max - 1, $links ) ) {
+		if ( ! in_array( $max - 1, $links, false ) ) {
 			echo '<li class="pagination-omission">&#x02026;</li>' . "\n";
 		}
 
-		$class = $paged == $max ? ' class="active page-item"' : ' class="page-item"';
+		$class = $paged === $max ? ' class="active page-item"' : ' class="page-item"';
 		printf( '<li%s><a class="page-link" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $before_number . $max );
 
 	}
@@ -142,10 +160,12 @@ function shq_genestrap_numeric_posts_nav() {
 	}
 
 	echo '</ul>';
-	genesis_markup( array(
-		'close'    => '</div>',
-		'context' => 'archive-pagination',
-	) );
+	genesis_markup(
+		[
+			'close'   => '</div>',
+			'context' => 'archive-pagination',
+		]
+	);
 
 	echo "\n";
 

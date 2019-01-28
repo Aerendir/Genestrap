@@ -2,27 +2,31 @@
 /* eslint-disable no-undef */
 /* This is to avoid errors about "call" is not defined */
 /* eslint-disable no-unused-vars */
-const el = wp.element.createElement,
-	{ __ } = wp.i18n,
-	{ apiFetch } = wp,
+const el                  = wp.element.createElement,
+	{ __ }                = wp.i18n,
+	{ apiFetch }          = wp,
 	{ registerBlockType } = wp.blocks,
 	{ PanelBody, RangeControl, QueryControls, Spinner, ToggleControl, Toolbar } = wp.components,
-	{ withSelect } = wp.data,
+	{ withSelect }       = wp.data,
 	{ dateI18n, format } = wp.date,
 	{ BlockAlignmentToolbar, BlockControls, InspectorControls } = wp.editor,
-	{ Fragment } = wp.element,
+	{ Fragment }       = wp.element,
 	{ decodeEntities } = wp.htmlEntities,
-	{ addQueryArgs } = wp.url;
+	{ addQueryArgs }   = wp.url;
 
 // These calla have to stay here so they get a value before the block and its Inspector is rendered
 // https://wordpress.stackexchange.com/questions/319035/how-would-i-get-a-taxonomy-category-list-inside-a-gutenberg-block#comment473739_320481
-const categoriesList = [];
-const call = apiFetch( { path: addQueryArgs( `/wp/v2/categories`, { per_page: -1 } ) } )
-	.then( function( categories ) {
-		categories.map( function( category ) {
-			categoriesList.push( category );
-		} );
-	} );
+const categoriesList    = [];
+const call              = apiFetch( { path: addQueryArgs( '/wp/v2/categories', { per_page: -1 } ) } )
+	.then(
+		function( categories ) {
+				categories.map(
+					function( category ) {
+						categoriesList.push( category );
+					}
+				);
+		}
+	);
 const MAX_POSTS_COLUMNS = 6;
 
 /**
@@ -44,16 +48,19 @@ const hasPosts = function( posts ) {
  */
 const buildToolbarControls = function( props ) {
 	const { attributes, setAttributes } = props;
-	const { align, postLayout } = attributes;
+	const { align, postLayout }         = attributes;
 
-	const onChangeBlockAlignment = function( nextAlign ) {
+	const onChangeBlockAlignment       = function( nextAlign ) {
 		setAttributes( { align: nextAlign } );
 	};
-	const blockAlignmentToolbarElement = el( BlockAlignmentToolbar, {
-		value: align,
-		onChange: onChangeBlockAlignment,
-		controls: [ 'center', 'wide', 'full' ],
-	} );
+	const blockAlignmentToolbarElement = el(
+		BlockAlignmentToolbar,
+		{
+			value: align,
+			onChange: onChangeBlockAlignment,
+			controls: [ 'center', 'wide', 'full' ],
+		}
+	);
 
 	const toolbarControls = [
 		{
@@ -63,7 +70,7 @@ const buildToolbarControls = function( props ) {
 				setAttributes( { postLayout: 'list' } );
 			},
 			isActive: 'list' === postLayout,
-		},
+	},
 		{
 			icon: 'grid-view',
 			title: __( 'Grid View' ),
@@ -71,9 +78,9 @@ const buildToolbarControls = function( props ) {
 				setAttributes( { postLayout: 'grid' } );
 			},
 			isActive: 'grid' === postLayout,
-		},
+	},
 	];
-	const toolbarElement = el( Toolbar, { controls: toolbarControls } );
+	const toolbarElement  = el( Toolbar, { controls: toolbarControls } );
 
 	return el( BlockControls, null, blockAlignmentToolbarElement, toolbarElement );
 };
@@ -89,13 +96,13 @@ const buildInspectorControls = function( props ) {
 	const { attributes, posts, setAttributes } = props;
 	const { columns, displayPostDate, displayPostFeaturedImage, order, orderBy, numberOfItems, postLayout, selectedCategoryId } = attributes;
 
-	const onOrderChange = function( value ) {
+	const onOrderChange         = function( value ) {
 		setAttributes( { order: value } );
 	};
-	const onOrderByChange = function( value ) {
+	const onOrderByChange       = function( value ) {
 		setAttributes( { orderBy: value } );
 	};
-	const onCategoryChange = function( value ) {
+	const onCategoryChange      = function( value ) {
 		setAttributes( { selectedCategoryId: '' === value ? undefined : value } );
 	};
 	const onNumberOfItemsChange = function( value ) {
@@ -103,53 +110,65 @@ const buildInspectorControls = function( props ) {
 	};
 
 	// https://github.com/WordPress/gutenberg/tree/master/packages/components/src/query-controls
-	const queryControlsElement = el( QueryControls, {
-		categoriesList,
-		selectedCategoryId,
-		order,
-		orderBy,
-		numberOfItems,
-		onOrderChange,
-		onOrderByChange,
-		onNumberOfItemsChange,
-		onCategoryChange,
-	} );
+	const queryControlsElement = el(
+		QueryControls,
+		{
+			categoriesList,
+			selectedCategoryId,
+			order,
+			orderBy,
+			numberOfItems,
+			onOrderChange,
+			onOrderByChange,
+			onNumberOfItemsChange,
+			onCategoryChange,
+		}
+	);
 
-	const onDisplayPostDateChange = function() {
+	const onDisplayPostDateChange      = function() {
 		setAttributes( { displayPostDate: ! displayPostDate } );
 	};
-	const toggleDisplayPostDateLabel = __( 'Display post date' );
-	const toggleDisplayPostDateElement = el( ToggleControl, {
-		label: toggleDisplayPostDateLabel,
-		checked: displayPostDate,
-		onChange: onDisplayPostDateChange,
-	} );
+	const toggleDisplayPostDateLabel   = __( 'Display post date' );
+	const toggleDisplayPostDateElement = el(
+		ToggleControl,
+		{
+			label: toggleDisplayPostDateLabel,
+			checked: displayPostDate,
+			onChange: onDisplayPostDateChange,
+		}
+	);
 
-	const onDisplayPostFeaturedImageChange = function() {
+	const onDisplayPostFeaturedImageChange      = function() {
 		setAttributes( { displayPostFeaturedImage: ! displayPostFeaturedImage } );
 	};
-	const toggleDisplayPostFeaturedImageLabel = __( 'Display post date' );
-	const toggleDisplayPostFeaturedImageElement = el( ToggleControl, {
-		label: toggleDisplayPostFeaturedImageLabel,
-		checked: displayPostFeaturedImage,
-		onChange: onDisplayPostFeaturedImageChange,
-	} );
+	const toggleDisplayPostFeaturedImageLabel   = __( 'Display post date' );
+	const toggleDisplayPostFeaturedImageElement = el(
+		ToggleControl,
+		{
+			label: toggleDisplayPostFeaturedImageLabel,
+			checked: displayPostFeaturedImage,
+			onChange: onDisplayPostFeaturedImageChange,
+		}
+	);
 
 	let postLayoutElement = '';
 	if ( 'grid' === postLayout ) {
-		const postLayoutLabel = __( 'Columns' );
-		const onChangePostLayout = function( value ) {
+		const postLayoutLabel      = __( 'Columns' );
+		const onChangePostLayout   = function( value ) {
 			setAttributes( { columns: value } );
 		};
 		const postLayoutMaxColumns = ! hasPosts( posts ) ? MAX_POSTS_COLUMNS : Math.min( MAX_POSTS_COLUMNS, posts.length );
 
-		postLayoutElement = el( RangeControl, {
-			label: postLayoutLabel,
-			value: columns,
-			onChange: onChangePostLayout,
-			min: 2,
-			max: postLayoutMaxColumns,
-		} );
+		postLayoutElement = el(
+			RangeControl,
+			{
+				label: postLayoutLabel,
+				value: columns,
+				onChange: onChangePostLayout,
+				min: 2,
+				max: postLayoutMaxColumns,
+			}
+		);
 	}
 
 	const panelBodyElement = el( PanelBody, { title: 'Questo è il titolo' }, queryControlsElement, toggleDisplayPostDateElement, toggleDisplayPostFeaturedImageElement, postLayoutElement );
@@ -166,7 +185,7 @@ const buildInspectorControls = function( props ) {
  * @return {function} - The post entry.
  */
 const renderPostEntry = function( post, displayPostDate, displayPostFeaturedImage ) {
-	const title = decodeEntities( post.title.rendered.trim() || __( '(Untitled)' ) );
+	const title        = decodeEntities( post.title.rendered.trim() || __( '(Untitled)' ) );
 	const titleElement = el( 'a', { href: post.link }, title );
 
 	let dateElement = '';
@@ -190,7 +209,7 @@ const renderPostEntry = function( post, displayPostDate, displayPostFeaturedImag
  * @return {function} - The list of posts.
  */
 const buildPostsList = function( props ) {
-	const { className, posts, attributes } = props;
+	const { className, posts, attributes }         = props;
 	const { columns, displayPostDate, postLayout } = attributes;
 
 	const classes = [];
@@ -198,7 +217,7 @@ const buildPostsList = function( props ) {
 
 	if ( 'grid' === postLayout ) {
 		classes.push( 'is-grid' );
-		classes.push( `columns-${ columns }` );
+		classes.push( `columns - ${ columns }` );
 	}
 
 	if ( true === displayPostDate ) {
@@ -206,42 +225,51 @@ const buildPostsList = function( props ) {
 	}
 
 	// Build the lists of Posts to show
-	const postsElements = posts.map( function( post ) {
-		const renderedPost = renderPostEntry( post, displayPostDate, attributes.displayPostFeaturedImage );
+	const postsElements = posts.map(
+		function( post ) {
+				const renderedPost = renderPostEntry( post, displayPostDate, attributes.displayPostFeaturedImage );
 
-		return el( 'li', null, renderedPost );
-	} );
+				return el( 'li', null, renderedPost );
+		}
+	);
 
 	return el( 'ul', { className: classes.join( ' ' ) }, postsElements );
 };
 
-registerBlockType( 'genestrap/latest-posts', {
-	title: 'Latest Posts Ecom',
+registerBlockType(
+	'genestrap/latest-posts',
+	{
+		title: 'Latest Posts Ecom',
 
-	icon: 'dashicons-list-view',
+		icon: 'dashicons-list-view',
 
-	category: 'widgets',
+		category: 'widgets',
 
-	edit: withSelect( function( select, ownProps ) {
-		const { selectedCategoryId, orderBy, order } = ownProps.attributes;
-		const numberOfItems = Number.isInteger( ownProps.attributes.numberOfItems ) ? ownProps.attributes.numberOfItems : 5;
+		edit: withSelect(
+			function( select, ownProps ) {
+				const { selectedCategoryId, orderBy, order } = ownProps.attributes;
+				const numberOfItems                          = Number.isInteger( ownProps.attributes.numberOfItems ) ? ownProps.attributes.numberOfItems : 5;
 
-		return { posts: select( 'core' ).getEntityRecords( 'postType', 'post', { per_page: numberOfItems, order, orderBy, categories: selectedCategoryId, _embed: true } ) };
-	} )( function( props ) {
-		if ( ! props.posts ) {
-			return Spinner();
-		}
+				return { posts: select( 'core' ).getEntityRecords( 'postType', 'post', { per_page: numberOfItems, order, orderBy, categories: selectedCategoryId, _embed: true } ) };
+			}
+		)(
+			function( props ) {
+				if ( ! props.posts ) {
+					  return Spinner();
+				}
 
-		if ( props.posts.length === 0 ) {
-			return __( 'No posts found.' );
-		}
+				if ( props.posts.length === 0 ) {
+					  return __( 'No posts found.' );
+				}
 
-		const postsList = buildPostsList( props );
+				const postsList = buildPostsList( props );
 
-		return ( el( Fragment, null, buildToolbarControls( props ), buildInspectorControls( props ), postsList ) );
-	} ),
+				return ( el( Fragment, null, buildToolbarControls( props ), buildInspectorControls( props ), postsList ) );
+			}
+		),
 
 	save: function() {
 		return null;
 	},
-} );
+	}
+);
