@@ -1,4 +1,7 @@
-console.log(wp);
+/* This to avoid errors about "wp" is not defined */
+/* eslint-disable no-undef */
+/* This is to avoid errors about "call" is not defined */
+/* eslint-disable no-unused-vars */
 const el = wp.element.createElement,
 	{ __ } = wp.i18n,
 	{ apiFetch } = wp,
@@ -14,19 +17,19 @@ const el = wp.element.createElement,
 // These calla have to stay here so they get a value before the block and its Inspector is rendered
 // https://wordpress.stackexchange.com/questions/319035/how-would-i-get-a-taxonomy-category-list-inside-a-gutenberg-block#comment473739_320481
 const categoriesList = [];
-const call = apiFetch({ path: addQueryArgs( '/wp/v2/categories', { per_page: -1 } ) })
-	.then(function(categories) {
-		categories.map(function( category ) {
-			categoriesList.push(category);
-		});
-	});
+const call = apiFetch( { path: addQueryArgs( '/wp/v2/categories', { per_page: -1 } ) } )
+	.then( function( categories ) {
+		categories.map( function( category ) {
+			categoriesList.push( category );
+		} );
+	} );
 const MAX_POSTS_COLUMNS = 6;
 
 /**
  * Checks if there are posts to display or not.
  *
- * @param posts
- * @returns {boolean} - If has posts or not.
+ * @param {Array|null} posts - The list of posts.
+ * @return {boolean} - If has posts or not.
  */
 const hasPosts = function( posts ) {
 	return Array.isArray( posts ) && posts.length;
@@ -37,36 +40,42 @@ const hasPosts = function( posts ) {
  *
  * @param {Object} props - The props of the React component.
  *
- * @returns {function} - The toolbar.
+ * @return {function} - The toolbar.
  */
 const buildToolbarControls = function( props ) {
 	const { attributes, setAttributes } = props;
 	const { align, postLayout } = attributes;
 
-	const onChangeBlockAlignment = function (nextAlign) { setAttributes({ align: nextAlign })};
-	const blockAlignmentToolbarElement = el(BlockAlignmentToolbar, {
+	const onChangeBlockAlignment = function( nextAlign ) {
+		setAttributes( { align: nextAlign } );
+	};
+	const blockAlignmentToolbarElement = el( BlockAlignmentToolbar, {
 		align,
 		onChangeBlockAlignment,
-		controls: ['center', 'wide', 'full'],
-	});
+		controls: [ 'center', 'wide', 'full' ],
+	} );
 
 	const toolbarControls = [
 		{
 			icon: 'list-view',
 			title: __( 'List View' ),
-			onClick: function() { setAttributes( { postLayout: 'list' } ) },
+			onClick: function() {
+				setAttributes( { postLayout: 'list' } );
+			},
 			isActive: 'list' === postLayout,
 		},
 		{
 			icon: 'grid-view',
 			title: __( 'Grid View' ),
-			onClick: function(){ setAttributes( { postLayout: 'grid' } ) },
+			onClick: function() {
+				setAttributes( { postLayout: 'grid' } );
+			},
 			isActive: 'grid' === postLayout,
 		},
 	];
-	const toolbarElement = el(Toolbar, { controls: toolbarControls });
+	const toolbarElement = el( Toolbar, { controls: toolbarControls } );
 
-	return el(BlockControls, null, blockAlignmentToolbarElement, toolbarElement);
+	return el( BlockControls, null, blockAlignmentToolbarElement, toolbarElement );
 };
 
 /**
@@ -74,19 +83,27 @@ const buildToolbarControls = function( props ) {
  *
  * @param {Object} props - The props of the React component.
  *
- * @returns {function} - The block controls.
+ * @return {function} - The block controls.
  */
-const buildInspectorControls = function(props) {
+const buildInspectorControls = function( props ) {
 	const { attributes, posts, setAttributes } = props;
 	const { columns, displayPostDate, displayPostFeaturedImage, order, orderBy, numberOfItems, postLayout, selectedCategoryId } = attributes;
 
-	const onOrderChange = function( value ) { setAttributes( { order: value } ) };
-	const onOrderByChange = function( value ) { setAttributes( { orderBy: value } ) };
-	const onCategoryChange = function( value ) { setAttributes( { selectedCategoryId: '' === value ? undefined : value } ) };
-	const onNumberOfItemsChange = function( value ) { setAttributes( { numberOfItems: value } ) };
+	const onOrderChange = function( value ) {
+		setAttributes( { order: value } );
+	};
+	const onOrderByChange = function( value ) {
+		setAttributes( { orderBy: value } );
+	};
+	const onCategoryChange = function( value ) {
+		setAttributes( { selectedCategoryId: '' === value ? undefined : value } );
+	};
+	const onNumberOfItemsChange = function( value ) {
+		setAttributes( { numberOfItems: value } );
+	};
 
 	// https://github.com/WordPress/gutenberg/tree/master/packages/components/src/query-controls
-	const queryControlsElement = el(QueryControls, {
+	const queryControlsElement = el( QueryControls, {
 		categoriesList,
 		selectedCategoryId,
 		order,
@@ -96,42 +113,48 @@ const buildInspectorControls = function(props) {
 		onOrderByChange,
 		onNumberOfItemsChange,
 		onCategoryChange,
-	});
+	} );
 
-	const onDisplayPostDateChange = function() { setAttributes( { displayPostDate: !displayPostDate } ) };
-	const toggleDisplayPostDateLabel =  __( 'Display post date' );
-	const toggleDisplayPostDateElement = el(ToggleControl, {
+	const onDisplayPostDateChange = function() {
+		setAttributes( { displayPostDate: ! displayPostDate } );
+	};
+	const toggleDisplayPostDateLabel = __( 'Display post date' );
+	const toggleDisplayPostDateElement = el( ToggleControl, {
 		label: toggleDisplayPostDateLabel,
 		checked: displayPostDate,
 		onChange: onDisplayPostDateChange,
-	});
+	} );
 
-	const onDisplayPostFeaturedImageChange = function() { setAttributes( { displayPostFeaturedImage: !displayPostFeaturedImage } ) };
-	const toggleDisplayPostFeaturedImageLabel =  __( 'Display post featured image' );
-	const toggleDisplayPostFeaturedImageElement = el(ToggleControl, {
+	const onDisplayPostFeaturedImageChange = function() {
+		setAttributes( { displayPostFeaturedImage: ! displayPostFeaturedImage } );
+	};
+	const toggleDisplayPostFeaturedImageLabel = __( 'Display post featured image' );
+	const toggleDisplayPostFeaturedImageElement = el( ToggleControl, {
 		label: toggleDisplayPostFeaturedImageLabel,
 		checked: displayPostFeaturedImage,
 		onChange: onDisplayPostFeaturedImageChange,
-	});
+	} );
 
 	let postLayoutElement = '';
-	if ('grid' === postLayout) {
-		const postLayoutLabel = __('Columns');
-		const onChangePostLayout = function ( value ) { setAttributes({ columns: value })};
-		const postLayoutMaxColumns = !hasPosts( posts ) ? MAX_POSTS_COLUMNS : Math.min( MAX_POSTS_COLUMNS, posts.length );
+	if ( 'grid' === postLayout ) {
+		const postLayoutLabel = __( 'Columns' );
+		const onChangePostLayout = function( value ) {
+			setAttributes( { columns: value } );
+		};
+		const postLayoutMaxColumns = ! hasPosts( posts ) ? MAX_POSTS_COLUMNS : Math.min( MAX_POSTS_COLUMNS, posts.length );
 
-		postLayoutElement = el(RangeControl, {
+		postLayoutElement = el( RangeControl, {
 			label: postLayoutLabel,
 			value: columns,
 			onChange: onChangePostLayout,
 			min: 2,
 			max: postLayoutMaxColumns,
-		});
+		} );
 	}
 
-	const panelBodyElement = el(PanelBody, { title: 'Questo è il titolo' }, queryControlsElement, toggleDisplayPostDateElement, toggleDisplayPostFeaturedImageElement, postLayoutElement);
+	const panelBodyElement = el( PanelBody, { title: 'Questo è il titolo' }, queryControlsElement, toggleDisplayPostDateElement, toggleDisplayPostFeaturedImageElement, postLayoutElement );
 
-	return el(InspectorControls, null, panelBodyElement);
+	return el( InspectorControls, null, panelBodyElement );
 };
 
 /**
@@ -140,56 +163,56 @@ const buildInspectorControls = function(props) {
  * @param {Object} post - The post to render
  * @param {boolean} displayPostDate - Show or not the date of the post.
  * @param {boolean} displayPostFeaturedImage - Show or not the featured image of the post.
- * @returns {function} - The post entry.
+ * @return {function} - The post entry.
  */
 const renderPostEntry = function( post, displayPostDate, displayPostFeaturedImage ) {
-	const title = decodeEntities(post.title.rendered.trim() || __( '(Untitled)' ));
-	const titleElement = el('a', { href: post.link }, title);
+	const title = decodeEntities( post.title.rendered.trim() || __( '(Untitled)' ) );
+	const titleElement = el( 'a', { href: post.link }, title );
 
 	let dateElement = '';
-	if (true === displayPostDate && post.date_gmt) {
+	if ( true === displayPostDate && post.date_gmt ) {
 		// dateI18n first parameter is equal to wp-date.__experimentalGetSettings().formats.date
 		dateElement = el( 'time', { dateTime: format( 'c', post.date_gmt ), className: 'wp-block-genestrap-latest-posts__post-date' }, dateI18n( 'F j, Y', post.date_gmt ) );
 	}
 
 	let featuredImageElement = '';
-	if (true === displayPostFeaturedImage && post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]) {
-		featuredImageElement = el('img', { className: 'wp-block-latest-posts__post-featured-image', src: post._embedded['wp:featuredmedia'][0].source_url });
+	if ( true === displayPostFeaturedImage && post._embedded && post._embedded[ 'wp:featuredmedia' ] && post._embedded[ 'wp:featuredmedia' ][ 0 ] ) {
+		featuredImageElement = el( 'img', { className: 'wp-block-latest-posts__post-featured-image', src: post._embedded[ 'wp:featuredmedia' ][ 0 ].source_url } );
 	}
 
-	return el(Fragment, null, featuredImageElement, titleElement, dateElement);
+	return el( Fragment, null, featuredImageElement, titleElement, dateElement );
 };
 
 /**
  * Build the list of posts.
  *
  * @param {Object} props - The props passed to the component.
- * @returns {function} - The list of posts.
+ * @return {function} - The list of posts.
  */
 const buildPostsList = function( props ) {
 	const { className, posts, attributes } = props;
 	const { columns, displayPostDate, postLayout } = attributes;
 
 	const classes = [];
-	classes.push(className);
+	classes.push( className );
 
-	if ('grid' === postLayout) {
-		classes.push('is-grid');
-		classes.push(`columns-${ columns }`);
+	if ( 'grid' === postLayout ) {
+		classes.push( 'is-grid' );
+		classes.push( `columns-${ columns }` );
 	}
 
-	if (true === displayPostDate) {
-		classes.push('has-dates');
+	if ( true === displayPostDate ) {
+		classes.push( 'has-dates' );
 	}
 
 	// Build the lists of Posts to show
-	const postsElements = posts.map(function(post){
-		const renderedPost = renderPostEntry(post, displayPostDate, attributes.displayPostFeaturedImage);
+	const postsElements = posts.map( function( post ) {
+		const renderedPost = renderPostEntry( post, displayPostDate, attributes.displayPostFeaturedImage );
 
-		return el('li', null, renderedPost);
-	});
+		return el( 'li', null, renderedPost );
+	} );
 
-	return el('ul', { className: classes.join(' ')}, postsElements);
+	return el( 'ul', { className: classes.join( ' ' ) }, postsElements );
 };
 
 registerBlockType( 'genestrap/latest-posts', {
@@ -201,10 +224,10 @@ registerBlockType( 'genestrap/latest-posts', {
 
 	edit: withSelect( function( select, ownProps ) {
 		const { selectedCategoryId, orderBy, order } = ownProps.attributes;
-		const numberOfItems = Number.isInteger(ownProps.attributes.numberOfItems) ? ownProps.attributes.numberOfItems : 5;
+		const numberOfItems = Number.isInteger( ownProps.attributes.numberOfItems ) ? ownProps.attributes.numberOfItems : 5;
 
-		return { posts: select( 'core' ).getEntityRecords( 'postType', 'post', { per_page: numberOfItems, order, orderBy, categories: selectedCategoryId, _embed: true }) };
-	})( function( props ) {
+		return { posts: select( 'core' ).getEntityRecords( 'postType', 'post', { per_page: numberOfItems, order, orderBy, categories: selectedCategoryId, _embed: true } ) };
+	} )( function( props ) {
 		if ( ! props.posts ) {
 			return Spinner();
 		}
@@ -213,9 +236,9 @@ registerBlockType( 'genestrap/latest-posts', {
 			return __( 'No posts found.' );
 		}
 
-		const postsList = buildPostsList(props);
+		const postsList = buildPostsList( props );
 
-		return (el(Fragment, null, buildToolbarControls(props), buildInspectorControls(props), postsList));
+		return ( el( Fragment, null, buildToolbarControls( props ), buildInspectorControls( props ), postsList ) );
 	} ),
 
 	save: function() {
