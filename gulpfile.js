@@ -1,11 +1,12 @@
 const gulp = require('gulp'),
   concat = require('gulp-concat'),
+  gulpIf = require('gulp-if'),
   rename = require('gulp-rename'),
   sass = require('gulp-sass'),
   merge = require('merge-stream'),
   del = require('del'),
-  fs = require('fs');
-
+  fs = require('fs'),
+  lazypipe = require('lazypipe');
 
 // Move all PHP files to the build/theme folder
 gulp.task('move-php-files', function(done){
@@ -16,6 +17,21 @@ gulp.task('move-php-files', function(done){
     .pipe(gulp.dest('build/theme/lib'));
 
   // Inform Gulp this task is done
+  done();
+});
+
+// Move Gutenberg blocks
+gulp.task('move-blocks', function (done) {
+  const processScss = lazypipe()
+    .pipe(sass.sync)
+    .pipe(rename, function (path) {
+      path.extname = '.css';
+    });
+
+  gulp.src(['src/blocks/**/*'])
+    .pipe(gulpIf('*.scss', processScss()))
+    .pipe(gulp.dest('build/theme/blocks'));
+
   done();
 });
 
@@ -97,6 +113,7 @@ gulp.task('build', gulp.series(
   'build-css',
   'build-js',
   'move-php-files',
+  'move-blocks',
   'move-bootstrap-walker',
   'move-screenshot',
   'move-icon-fonts'

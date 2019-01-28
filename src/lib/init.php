@@ -1,5 +1,63 @@
 <?php
 
+/**
+ * @param      $pattern
+ * @param int  $flags
+ * @param bool $traversePostOrder
+ *
+ * @return array|false
+ *
+ * @link http://php.net/manual/en/function.glob.php#119231
+ */
+function genestrap_rglob ($pattern, $flags = 0, $traversePostOrder = false) {
+    // Keep away the hassles of the rest if we don't use the wildcard anyway
+    if (strpos($pattern, '/**/') === false) {
+        return glob($pattern, $flags);
+    }
+
+    $patternParts = explode('/**/', $pattern);
+
+    // Get sub dirs
+    $dirs = glob(array_shift($patternParts) . '/*', GLOB_ONLYDIR | GLOB_NOSORT);
+
+    // Get files for current dir
+    $files = glob($pattern, $flags);
+
+    foreach ($dirs as $dir) {
+        $subDirContent = genestrap_rglob($dir . '/**/' . implode('/**/', $patternParts), $flags, $traversePostOrder);
+
+        if (!$traversePostOrder) {
+            $files = array_merge($files, $subDirContent);
+        } else {
+            $files = array_merge($subDirContent, $files);
+        }
+    }
+
+    return $files;
+}
+
+/**
+ * @return bool true if this WordPress installation is running on localhost.
+ */
+function genestrap_is_localhost() {
+    return substr($_SERVER['REMOTE_ADDR'], '127.') === 0 || $_SERVER['REMOTE_ADDR'] === '::1';
+}
+
+/**
+ * Returns the real version of the theme on production,
+ * while returns the current datetime in development to bypass caching.
+ *
+ * The theme version is always passed to function that register
+ * stylesheets and javascript to avoid adding the current version of
+ * WordPress to querystring: this will make more difficult to spot it
+ * and is one more security layer against attackers.
+ *
+ * @return string
+ */
+function genestrap_get_current_version() {
+    return genestrap_is_localhost() ? date('h:i:s') : CHILD_THEME_VERSION;
+}
+
 add_action('genesis_setup', 'shq_gestrap_init');
 
 /**
@@ -21,7 +79,7 @@ function shq_gestrap_init() {
 	function shqgb_enqueue_scripts() {
 		$scriptsFile = get_stylesheet_directory_uri() . '/js/scripts.js';
 		// Add the Bootstrap scripts
-		wp_register_script( 'scripts', $scriptsFile, ['jquery'], '4.0', true );
+		wp_register_script( 'scripts', $scriptsFile, ['jquery'], genestrap_get_current_version(), true );
 		wp_enqueue_script('scripts');
 	};
 	add_action( 'wp_enqueue_scripts', 'shqgb_enqueue_scripts', 11 );
@@ -60,4 +118,12 @@ function shq_gestrap_init() {
 			require_once($file);
 		};
 	}
+
+    // Load all the files required to customize Gutenberg
+    foreach ( genestrap_rglob( get_stylesheet_directory() . '/blocks/**/*.php' ) as $file ) {
+        // Do not include this file
+        if (false === strpos($file, 'init.php')) {
+            require_once($file);
+        };
+    }
 }
