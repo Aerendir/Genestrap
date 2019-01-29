@@ -54,7 +54,7 @@ function shq_genestrap_render_block_latest_post( $attributes ) {
 		}
 
 		$list_items_markup .= sprintf(
-			'<a href="%1$s">%2$s%3$s</a>',
+			'<a href="%1$s">%2$s<span class="post-title">%3$s</span></a>',
 			esc_url( get_permalink( $post_id ) ),
 			$post_featured_image,
 			esc_html( $title )
