@@ -31,6 +31,16 @@ function google_fonts() {
 }
 add_action( 'wp_enqueue_scripts', 'google_fonts' );
 
+/**
+ * Adds the favicon.
+ *
+ * @return string
+ */
+function genestrap_add_favicon() {
+	return 'https://www.serendipityhq.com/assets/favicon.png';
+}
+add_filter( 'genesis_pre_load_favicon', 'genestrap_add_favicon' );
+
 // !!! Be sure the actions are added onlly in DEBUG MODE!!!
 if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
 	add_action( 'wp_footer', 'shq_genestrap_debug_genesis_structural_markup_filters' );
