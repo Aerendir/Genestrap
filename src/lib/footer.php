@@ -30,7 +30,8 @@ add_filter( 'genesis_structural_wrap-footer-widgets', 'shq_genestrap_add_row_to_
  * @return array
  */
 function shq_genestrap_add_col_classes() {
-	return shq_genestrap_add_html_class( 'footer-widget-area', 'col-sm-6' );
+	$col_zie = 12 / get_theme_support('genesis-footer-widgets')[0];
+	return shq_genestrap_add_html_class( 'footer-widget-area', 'col-sm-' . $col_zie );
 }
 add_filter( 'shq_genestrap_add_genesis_attr', 'shq_genestrap_add_col_classes' );
 
