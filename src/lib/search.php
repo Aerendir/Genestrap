@@ -35,7 +35,7 @@
 function bfg_search_form( $form ) {
 	$form = '<form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="' . home_url( '/' ) . '" >
 	<input class="form-control mr-sm-2" type="text" value="' . get_search_query() . '" placeholder="' . esc_attr__( 'Search', 'bootstrap-for-genesis' ) . '..." name="s" id="s" />
-	<button type="submit" id="searchsubmit" value="' . esc_attr__( 'Search', 'bootstrap-for-genesis' ) . '" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+	<button type="submit" id="searchsubmit" value="' . esc_attr__( 'Search', 'bootstrap-for-genesis' ) . '" class="btn btn-outline-primary my-2 my-sm-0">Search</button>
     </form>';
 	return $form;
 }
