@@ -90,6 +90,8 @@ header {
         padding: 0;
 
         ol.comment-list {
+			margin-bottom: 0;
+
             li.comment {
                 list-style-type: none;
                 margin: 0;
@@ -178,7 +180,7 @@ header {
     #respond {
         background: $gray-100;
         border: 2px solid $gray-200;
-        margin: 0;
+		margin: $grid-gutter-width 0 0;
         padding: $grid-gutter-width;
 
         h3#reply-title {
