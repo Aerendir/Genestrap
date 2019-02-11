@@ -34,7 +34,7 @@ function shq_genestrap_entry_featured_image() {
 		]
 	);
 
-	the_post_thumbnail( 'post-image' );
+	the_post_thumbnail( 'medium' );
 
 	genesis_markup(
 		[
