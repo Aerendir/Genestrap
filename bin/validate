@@ -6,3 +6,5 @@
 ./node_modules/.bin/prettier "./src/**/*.scss" -l
 # Only parse PHP files leaving JS and scss to eslint and stylelint
 ./vendor/bin/phpcs --extensions=php src
+composer outdated
+yarn outdated
