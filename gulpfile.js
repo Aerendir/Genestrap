@@ -1,12 +1,18 @@
 const gulp = require( 'gulp' ),
 	concat = require( 'gulp-concat' ),
+	exec = require( 'child_process' ).exec,
 	gulpIf = require( 'gulp-if' ),
 	rename = require( 'gulp-rename' ),
 	sass = require( 'gulp-sass' ),
+	makeDir = require( 'make-dir' ),
 	merge = require( 'merge-stream' ),
 	del = require( 'del' ),
 	fs = require( 'fs' ),
 	lazypipe = require( 'lazypipe' );
+
+gulp.task( 'clean-build', function() {
+	return del( [ 'build/**/*' ] );
+} );
 
 // Move all PHP files to the build/theme folder
 gulp.task( 'move-php-files', function( done ) {
@@ -53,16 +59,38 @@ gulp.task( 'move-bootstrap-walker', function( done ) {
 	done();
 } );
 
-gulp.task( 'clean-build', function() {
-	return del( [ 'build/**/*' ] );
+// Move images
+gulp.task( 'move-images', function( done ) {
+	gulp.src( [ 'src/images/*' ] )
+		.pipe( gulp.dest( 'build/theme/images' ) );
+
+	// Inform Gulp this task is done
+	done();
+} );
+
+// Build icons fonts
+gulp.task( 'build-icons-fonts', function( done ) {
+	if ( ! fs.existsSync( 'build/theme/icons' ) ) {
+		makeDir( 'build/theme/icons' );
+	}
+
+	exec( 'node_modules/.bin/webfont "src/scss/custom/elements/icons/*.svg" --dest build/theme/icons', function() {
+		done();
+	} );
 } );
 
 // Build CSSes from SASSes
 gulp.task( 'build-css', function( done ) {
-	const sassStream = gulp.src( 'src/scss/style.scss' )
+	// Load the SCSS files
+	const scssFiles = [ 'src/scss/style.scss' ];
+	if ( fs.existsSync( 'src/scss/auto-include' ) ) {
+		scssFiles.push( 'src/scss/auto-include/**/*.scss' );
+	}
+	const sassStream = gulp.src( scssFiles )
 		.pipe( sass.sync().on( 'error', sass.logError ) )
 		.pipe( gulp.dest( 'build/tmp' ) );
 
+	// Load additional CSS files
 	const cssFiles = [ 'src/style.css' ];
 	if ( fs.existsSync( 'src/css' ) ) {
 		cssFiles.push( 'src/css/**/*.css' );
@@ -112,6 +140,7 @@ gulp.task( 'build', gulp.series(
 	'clean-build',
 	'build-css',
 	'build-js',
+	'move-images',
 	'move-php-files',
 	'move-blocks',
 	'move-bootstrap-walker',
