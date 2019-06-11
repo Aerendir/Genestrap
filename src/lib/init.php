@@ -15,7 +15,7 @@
  */
 
 /**
- * @param      $pattern
+ * @param $pattern
  * @param int     $flags
  * @param bool    $traversePostOrder
  *

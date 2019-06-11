@@ -35,7 +35,7 @@ function shq_genestrap_add_html_structural_class( string $tag, string $class ) {
  *
  * NOTE: When calling this method do it this way:
  *
- *      return shq_genstrap_add_html_class();
+ * return shq_genstrap_add_html_class();
  *
  * The return value is required by shq_genestrap_process_genesis_attr() to work properly.
  *
