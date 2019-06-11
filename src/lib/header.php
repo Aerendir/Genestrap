@@ -44,8 +44,8 @@ function shq_genestrap_header():void {
 	do_action( 'genesis_site_title' );
 
 	echo '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#genestrap-header-menu" aria-controls="genestrap-header-menu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>';
+ <span class="navbar-toggler-icon"></span>
+ </button>';
 
 	// Now render the Primary Menu.
 	echo wp_nav_menu(

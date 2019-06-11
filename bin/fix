@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Explicitly set the js and jsx extensions to not parse json files
+./node_modules/.bin/eslint "./gulpfile.js" --fix --cache --cache-location "var/cache/.eslint/" &&
+./node_modules/.bin/eslint "./src/**/*.js" --fix --cache --cache-location "var/cache/.eslint/" &&
+# Parse json files, too
+./node_modules/.bin/stylelint "./src/**/*.scss" --fix --cache --cache-location "var/cache/.stylelint/" &&
+./node_modules/.bin/prettier "./src/**/*.scss" --write -l
+# Only parse PHP files leaving JS and scss to eslint and stylelint
+./vendor/bin/phpcbf --extensions=php src

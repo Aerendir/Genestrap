@@ -22,7 +22,7 @@
 
 /**
  * Add the action to your functions.php file
- *     add_action( 'wp_footer', 'shq_genestrap_debug_genesis_attr_filters' );
+ * add_action( 'wp_footer', 'shq_genestrap_debug_genesis_attr_filters' );
  *
  * @author Bryan Willis and Adamo Aerendir Crespi
  */
@@ -51,7 +51,7 @@ function shq_genestrap_debug_genesis_attr_filters() {
 
 /**
  * Add the action to your functions.php file
- *    add_action( 'wp_footer', 'shq_genestrap_debug_genesis_structural_markup_filters' );
+ * add_action( 'wp_footer', 'shq_genestrap_debug_genesis_structural_markup_filters' );
  *
  * @author Bryan Willis and Adamo Aerendir Crespi
  */

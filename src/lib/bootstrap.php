@@ -21,10 +21,10 @@
  *
  * Other classes that may are required:
  *
- *      'archive-pagination'   => 'clearfix',
- *      'entry-content'        => 'clearfix',
- *      'entry-pagination'     => 'clearfix',
- *      'sidebar-secondary'    => '',
+ * 'archive-pagination' => 'clearfix',
+ * 'entry-content' => 'clearfix',
+ * 'entry-pagination' => 'clearfix',
+ * 'sidebar-secondary' => '',
  */
 
 /**

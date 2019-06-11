@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+./node_modules/.bin/eslint "./gulpfile.js" --cache --cache-location "var/cache/.eslint/" &&
+./node_modules/.bin/eslint "./src/**/*.js" --cache --cache-location "var/cache/.eslint/" &&
+./node_modules/.bin/stylelint "./src/**/*.scss" --cache --cache-location "var/cache/.stylelint/" &&
+./node_modules/.bin/prettier "./src/**/*.scss" -l
+# Only parse PHP files leaving JS and scss to eslint and stylelint
+./vendor/bin/phpcs --extensions=php src

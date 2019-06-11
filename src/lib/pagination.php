@@ -57,13 +57,13 @@ function shq_genestrap_posts_nav() {
  *
  * The links, if needed, are ordered as:
  *
- *  * previous page arrow,
- *  * first page,
- *  * up to two pages before current page,
- *  * current page,
- *  * up to two pages after the current page,
- *  * last page,
- *  * next page arrow.
+ * * previous page arrow,
+ * * first page,
+ * * up to two pages before current page,
+ * * current page,
+ * * up to two pages after the current page,
+ * * last page,
+ * * next page arrow.
  *
  * @since 1.0.0
  *
@@ -123,11 +123,11 @@ function shq_genestrap_numeric_posts_nav() {
 	}
 
 	// Link to first page, plus ellipses if necessary.
-	if ( ! in_array( 1, $links , false ) ) {
+	if ( ! in_array( 1, $links, false ) ) {
 
 		$class = 1 === $paged ? ' class="active page-item"' : ' class="page-item"';
 
-		printf( '<li%s><a class="page-link" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link() ), $before_number . '1' );
+		printf( '<li%s><a class="page-link" href="%s">%s</a></li>' . "\n", esc_attr( $class ), esc_url( get_pagenum_link() ), esc_attr( $before_number ) . '1' );
 
 		if ( ! in_array( 2, $links, false ) ) {
 			echo '<li class="pagination-omission">&#x02026;</li>' . "\n";
@@ -139,7 +139,7 @@ function shq_genestrap_numeric_posts_nav() {
 	foreach ( $links as $link ) {
 		$class = $paged === $link ? ' class="active page-item"' : ' class="page-item"';
 		$aria  = $paged === $link ? ' aria-label="' . esc_attr__( 'Current page', 'genesis' ) . '"' : '';
-		printf( '<li%s><a class="page-link" href="%s" %s>%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $aria, $before_number . $link );
+		printf( '<li%s><a class="page-link" href="%s" %s>%s</a></li>' . "\n", esc_attr( $class ), esc_url( get_pagenum_link( $link ) ), esc_attr( $aria ), esc_attr( $before_number ) . $link );
 	}
 
 	// Link to last page, plus ellipses if necessary.
@@ -150,7 +150,7 @@ function shq_genestrap_numeric_posts_nav() {
 		}
 
 		$class = $paged === $max ? ' class="active page-item"' : ' class="page-item"';
-		printf( '<li%s><a class="page-link" href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $before_number . $max );
+		printf( '<li%s><a class="page-link" href="%s">%s</a></li>' . "\n", esc_attr( $class ), esc_url( get_pagenum_link( $max ) ), esc_attr( $before_number ) . $max );
 
 	}
 

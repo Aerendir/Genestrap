@@ -18,8 +18,8 @@
  * Adds link to the Genestrap Github Repository.
  *
  * Supported shortcode attributes are:
- *   after (output after link, default is empty string),
- *   before (output before link, default is empty string).
+ * after (output after link, default is empty string),
+ * before (output before link, default is empty string).
  *
  * Output passes through `shq_genestrap_genestrap_link_shortcode` filter before returning.
  *
@@ -142,7 +142,7 @@ function shq_genestrap_search_form_shortcode( array $atts ) {
 	$atts['show_placeholder'] = 'false' === $atts['show_placeholder'] ? false : true;
 
 	$form = '<form class="' . $atts['form_classes'] . '" role="search" method="get" id="searchform" action="' . home_url( '/' ) . '" >
-   		<div class="form-group">';
+ 		<div class="form-group">';
 
 	if ( $atts['show_label'] ) {
 		$form .= '<label class="screen-reader-text" for="s">' . __( 'Search for:' ) . '</label>';
@@ -155,8 +155,8 @@ function shq_genestrap_search_form_shortcode( array $atts ) {
 	$form .= '" /></div>';
 
 	$form .= '<div class="' . $atts['button_wrapper'] . '"><button type="submit" class="' . $atts['button_classes'] . '" id="searchsubmit">' . esc_attr__( 'Search' ) . '</button></div>
-    	</div>
-    </form>';
+ 	</div>
+ </form>';
 
 	return $form;
 }

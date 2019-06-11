@@ -21,6 +21,7 @@ const call = apiFetch( { path: addQueryArgs( '/wp/v2/categories', { per_page: -1
 	.then( function( categories ) {
 		categories.map( function( category ) {
 			categoriesList.push( category );
+			return true;
 		} );
 	} );
 const MAX_POSTS_COLUMNS = 6;
@@ -59,7 +60,7 @@ const buildToolbarControls = function( props ) {
 		{
 			icon: 'list-view',
 			title: __( 'List View' ),
-			onClick: function() {
+			onClick() {
 				setAttributes( { postLayout: 'list' } );
 			},
 			isActive: 'list' === postLayout,
@@ -67,7 +68,7 @@ const buildToolbarControls = function( props ) {
 		{
 			icon: 'grid-view',
 			title: __( 'Grid View' ),
-			onClick: function() {
+			onClick() {
 				setAttributes( { postLayout: 'grid' } );
 			},
 			isActive: 'grid' === postLayout,
@@ -241,7 +242,7 @@ registerBlockType( 'genestrap/latest-posts', {
 		return ( el( Fragment, null, buildToolbarControls( props ), buildInspectorControls( props ), postsList ) );
 	} ),
 
-	save: function() {
+	save() {
 		return null;
 	},
 } );

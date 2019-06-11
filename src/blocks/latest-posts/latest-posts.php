@@ -41,7 +41,7 @@ function shq_genestrap_render_block_latest_post( $attributes ) {
 
 		$post_featured_image = '';
 		if ( isset( $attributes['displayPostFeaturedImage'] ) && true === $attributes['displayPostFeaturedImage'] ) {
-			$post_featured_image = wp_get_attachment_image(get_post_thumbnail_id($post_id));
+			$post_featured_image = wp_get_attachment_image( get_post_thumbnail_id( $post_id ) );
 		}
 
 		$title = get_the_title( $post_id );
