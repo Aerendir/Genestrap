@@ -203,10 +203,10 @@
     "@types/unist" "*"
     "@types/vfile-message" "*"
 
-"@wordpress/eslint-plugin@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@wordpress/eslint-plugin/-/eslint-plugin-2.2.0.tgz#cf1714d171af2e968821a5f9cd3c632582122fbd"
-  integrity sha512-0NhyA+sMaLOzdNNhzTIXamllTqcBC6VRQlkkeroJUs8XkTzbCb+xCKuYWQARamjIGBmIo5ljXyKevYYj+VQqyA==
+"@wordpress/eslint-plugin@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@wordpress/eslint-plugin/-/eslint-plugin-2.3.0.tgz#6dda6f912b22a6304f3beb572b9ce05bfe37cda3"
+  integrity sha512-1X1uvBfwx96dxz0NmLB22JhSNaJQCYP3bYAnaR5qMV+O9t6gwbdPl+1kpYhe2sSKFm72y6Tfi8CKRWsyKRCHUg==
   dependencies:
     babel-eslint "^10.0.1"
     eslint-plugin-jsx-a11y "^6.2.1"
