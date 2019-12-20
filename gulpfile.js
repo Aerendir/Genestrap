@@ -120,30 +120,14 @@ gulp.task( 'build-js', function( done ) {
 	done();
 } );
 
-// Move icon fonts
-gulp.task( 'move-icon-fonts', function( done ) {
-	if ( fs.existsSync( 'src/scss/custom/elements/icons/build' ) ) {
-		gulp.src( [
-			'src/scss/custom/elements/icons/build/*.eot',
-			'src/scss/custom/elements/icons/build/*.svg',
-			'src/scss/custom/elements/icons/build/*.ttf',
-			'src/scss/custom/elements/icons/build/*.woff',
-			'src/scss/custom/elements/icons/build/*.woff2',
-		] )
-			.pipe( gulp.dest( 'build/theme/icons' ) );
-	}
-
-	done();
-} );
-
 gulp.task( 'build', gulp.series(
 	'clean-build',
-	'build-css',
-	'build-js',
 	'move-images',
 	'move-php-files',
 	'move-blocks',
 	'move-bootstrap-walker',
 	'move-screenshot',
-	'move-icon-fonts'
+	'build-icons-fonts',
+	'build-css',
+	'build-js',
 ) );
