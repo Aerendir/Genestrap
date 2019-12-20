@@ -198,10 +198,16 @@ header {
                 display: block;
             }
 
-            input, textarea {
-                border: 1px solid $gray-200;
-                width: 100%;
-            }
+			.comment-form-cookies-consent {
+				label {
+					display: inline;
+				}
+			}
+
+			input:not(input[type='checkbox']), textarea {
+				border: 1px solid $gray-200;
+				width: 100%;
+			}
 
             input[type="submit"] {
                 color: #fff;
@@ -212,6 +218,10 @@ header {
                 padding: $grid-gutter-width;
                 text-transform: uppercase;
             }
+
+			input[type="checkbox"] {
+				margin-right: $grid-gutter-width/2;
+			}
 
             input#author {
                 margin-right: 15px;
