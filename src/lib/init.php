@@ -98,6 +98,16 @@ function shq_gestrap_init() {
 	};
 	add_action( 'wp_enqueue_scripts', 'shqgb_enqueue_scripts', 11 );
 
+	/**
+	 * Explicitly imports the stylesheet of Genestrap.
+	 *
+	 * This is required, for example, by Elementor to load the stylesheet when using Elementor's templates.
+	 */
+	function shq_genestrap_enqueue_style() {
+		wp_enqueue_style('genestrap', get_stylesheet_uri(), [], genestrap_get_current_version());
+	}
+	add_action( 'wp_enqueue_scripts', 'shq_genestrap_enqueue_style' );
+
 	// Add HTML5 markup structure from Genesis
 	add_theme_support( 'html5' );
 
