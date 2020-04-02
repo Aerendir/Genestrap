@@ -313,10 +313,10 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@wordpress/eslint-plugin@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@wordpress/eslint-plugin/-/eslint-plugin-4.0.0.tgz#cb44c51ecba03e220c9c6547fab1d4f34b172e55"
-  integrity sha512-8BCMGeLbvzikPv4HHpLwFCbC/aVY/jKcayi/ZfBcCs8rGZEt/r8zVsXskQRxA1EInL2UTBdBx1H7XhjOA/HZgQ==
+"@wordpress/eslint-plugin@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@wordpress/eslint-plugin/-/eslint-plugin-4.1.0.tgz#b940e332f1b0f37986ec7df22a31c9539e32e4a2"
+  integrity sha512-AHkpSPECN9WRZPgcf1PXey23z1uDreH0siespO7K32wAIqiCXz2PS9Qs06K5BE+9jnjYOy+40krdbHYWVIZqKQ==
   dependencies:
     babel-eslint "^10.0.3"
     eslint-config-prettier "^6.10.0"
