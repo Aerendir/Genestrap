@@ -7,7 +7,7 @@
         "wp-bootstrap/wp-bootstrap-navwalker": "^4",
         "stevegrunwell/wp-enforcer": "^0.5",
         "squizlabs/php_codesniffer": "^3.4",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
         "wp-coding-standards/wpcs": "^2.0",
         "phpcompatibility/phpcompatibility-wp": "2.1.0"
     }
