@@ -21,7 +21,7 @@
         "make-dir": "^3.1.0",
         "merge-stream": "^2.0.0",
         "popper.js": "^1.16.1",
-        "prettier": "^2.1.1",
+        "prettier": "^2.1.2",
         "stylelint": "^13.7.1",
         "stylelint-config-recommended": "^3.0.0",
         "webfont": "^9.0.0"
