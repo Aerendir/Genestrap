@@ -402,10 +402,10 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@wordpress/eslint-plugin@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@wordpress/eslint-plugin/-/eslint-plugin-7.2.0.tgz#2035c682ae13c0a857a089d038965726e85e955f"
-  integrity sha512-dp6Egzg1pm3YAnwgWb471FP0g2hedl+8TyfUxkO1gTD01ueriosqS1caAZDiaswmYEY6N6Wkzf7WI8w+dOE+uw==
+"@wordpress/eslint-plugin@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@wordpress/eslint-plugin/-/eslint-plugin-7.2.1.tgz#5fcb6a2aabaf6e6ee6edd69c73b3fe050c6f0edb"
+  integrity sha512-p4LrUukVyuZAH/vSHFOV5L0NHW2i8WegOYFDgYCIzcWCi/A7jW1O+vUA5ylm1rRCKqj8Z/4WIMOGflf/8delYw==
   dependencies:
     "@wordpress/prettier-config" "^0.4.0"
     babel-eslint "^10.1.0"
